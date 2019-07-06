@@ -1,25 +1,26 @@
 #pragma once
 
-#include "Shader.h"
+#include "Material.h"
 
 class Object {
-protected:
-	Shader shader;
-	glm::mat4 model = glm::mat4(1.0f);
+private:
 	glm::vec3 pos;
+protected:
+	Material& material;
+	glm::mat4 model = glm::mat4(1.0f);
 public:
-	Object(const Shader& shader, float x, float y, float z) : shader(shader) {
-		updatePos(x, y, z);
+	Object(Material& material, const glm::vec3& pos) : material(material) {
+		updatePos(pos);
 	};
 
-	void updatePos(float x, float y, float z) {
-		pos = glm::vec3(x, y, z);
+	void updatePos(const glm::vec3& newPos) {
+		pos = newPos;
 		glm::translate(model, pos);
 	};
 
 	virtual void render() {
-		shader.use();
-		shader.setUniformMat("model", model);
+		material.use();
+		material.shader.setMat("model", model);
 	};
 };
 

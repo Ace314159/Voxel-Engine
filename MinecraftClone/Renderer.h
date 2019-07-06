@@ -3,10 +3,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "Block.h"
 #include "Camera.h"
-#include "Cube.h"
 #include "Object.h"
 #include "Shader.h"
+#include "Texturesheet.h"
 
 class Renderer {
 private:
@@ -14,7 +15,11 @@ private:
 	Camera camera;
 
 	// Shaders
-	Shader cubeShader;
+	Shader blockShader;
+	// Texture Sheets
+	TextureSheet blocksSheet;
+	// Materials
+	Material blockMaterial;
 
 	std::list<std::unique_ptr<Object>> objects;
 public:
@@ -22,7 +27,7 @@ public:
 	GLFWwindow* initWindow();
 
 	bool isRunning() { return !glfwWindowShouldClose(window); };
-	void addCube(float x, float y, float z) { objects.push_back(std::make_unique<Cube>(cubeShader, x, y, z)); }
+	void addBlock(int ID, const glm::vec3& pos) {objects.push_back(std::make_unique<Block>(blockMaterial,ID,pos));}
 	void render();
 	void handleEvents();
 };

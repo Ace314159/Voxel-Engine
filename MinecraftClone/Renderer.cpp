@@ -1,12 +1,13 @@
 #include "stdafx.h"
 #include "Renderer.h"
-#include "Cube.h"
+#include "Block.h"
 
-Renderer::Renderer() : window(initWindow()), camera(window), cubeShader("cube") {
+Renderer::Renderer() : window(initWindow()), camera(window), blockShader("block"), blocksSheet("blocks"),
+					   blockMaterial(blockShader, blocksSheet) {
 	// UBO Setup for Shaders
 	// Cube Shader
-	GLuint uniformCameraIndex = glGetUniformBlockIndex(cubeShader.ID, "Camera");
-	glUniformBlockBinding(cubeShader.ID, uniformCameraIndex, 0);
+	GLuint uniformCameraIndex = glGetUniformBlockIndex(blockShader.ID, "Camera");
+	glUniformBlockBinding(blockShader.ID, uniformCameraIndex, 0);
 };
 
 GLFWwindow* Renderer::initWindow() {
@@ -44,6 +45,7 @@ GLFWwindow* Renderer::initWindow() {
 	});
 #endif
 
+	glEnable(GL_DEPTH_TEST);
 	glViewport(0, 0, 1280, 720);
 	glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {
 		glViewport(0, 0, width, height);
@@ -53,8 +55,8 @@ GLFWwindow* Renderer::initWindow() {
 }
 
 void Renderer::render() {
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	camera.update();
 	for(const auto& obj : objects) obj->render();

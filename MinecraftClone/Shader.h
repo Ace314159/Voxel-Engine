@@ -15,8 +15,11 @@ public:
 
 	// Uniforms
 	GLint getUniformLoc(const std::string& name) const { return glGetUniformLocation(ID, name.c_str()); }
-	void setUniformMat(const std::string& name, const glm::mat4& mat) const { 
+	void setMat(const std::string& name, const glm::mat4& mat) const { 
 		glUniformMatrix4fv(getUniformLoc(name), 1, GL_FALSE, glm::value_ptr(mat));
+	}
+	void setInt(const std::string& name, int val) const {
+		glUniform1i(getUniformLoc(name), val);
 	}
 };
 
