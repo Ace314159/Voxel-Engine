@@ -5,6 +5,7 @@
 
 #include "Block.h"
 #include "Camera.h"
+#include "HUD.h"
 #include "Object.h"
 #include "Shader.h"
 #include "Texturesheet.h"
@@ -13,6 +14,8 @@ class Renderer {
 private:
 	GLFWwindow* window;
 	Camera camera;
+
+	HUD hud;
 
 	// Shaders
 	Shader blockShader;

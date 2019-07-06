@@ -5,5 +5,5 @@ Material::Material(Shader& shader, TextureSheet& texSheet)  : shader(shader), te
 
 void Material::use() {
 	shader.use();
-	shader.setInt("tex", texSheet.getTexNum());
+	shader.setInt("tex", texSheet.tex.unitNum);
 }

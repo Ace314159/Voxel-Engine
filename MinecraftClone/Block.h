@@ -7,7 +7,7 @@ class Block : public Object {
 private:
 	GLuint VAO, VBO, EBO;
 
-	Vertex vertices[6 * 4] = {
+	ObjectVertex vertices[6 * 4] = {
 		// Front
 		{glm::vec3( 0.5,  0.5,  0.5), glm::vec2()},
 		{glm::vec3(-0.5,  0.5,  0.5), glm::vec2()},

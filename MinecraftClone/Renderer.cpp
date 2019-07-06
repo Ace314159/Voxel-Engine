@@ -3,7 +3,9 @@
 #include "Block.h"
 
 Renderer::Renderer() : window(initWindow()), camera(window), blockShader("block"), blocksSheet("blocks"),
-					   blockMaterial(blockShader, blocksSheet) {
+blockMaterial(blockShader, blocksSheet) {
+	camera.enable();
+
 	// UBO Setup for Shaders
 	// Cube Shader
 	GLuint uniformCameraIndex = glGetUniformBlockIndex(blockShader.ID, "Camera");
@@ -28,7 +30,6 @@ GLFWwindow* Renderer::initWindow() {
 	}
 	glfwMakeContextCurrent(window);
 	glfwSetWindowUserPointer(window, &camera);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		throw std::runtime_error("Failed to initialize GLAD");
@@ -55,11 +56,12 @@ GLFWwindow* Renderer::initWindow() {
 }
 
 void Renderer::render() {
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	camera.update();
 	for(const auto& obj : objects) obj->render();
+	hud.render();
 
 	glfwSwapBuffers(window);
 	glfwPollEvents();

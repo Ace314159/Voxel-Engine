@@ -176,6 +176,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -185,16 +186,19 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureSheet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="HUD.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureSheet.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
@@ -204,6 +208,8 @@
   <ItemGroup>
     <None Include="block.frag" />
     <None Include="block.vert" />
+    <None Include="hud.frag" />
+    <None Include="hud.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

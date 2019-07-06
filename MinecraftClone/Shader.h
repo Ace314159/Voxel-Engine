@@ -11,7 +11,7 @@ public:
 	Shader(const std::string& shaderName);
 	GLuint ID;
 
-	void use() { glUseProgram(ID); };
+	void use() const { glUseProgram(ID); };
 
 	// Uniforms
 	GLint getUniformLoc(const std::string& name) const { return glGetUniformLocation(ID, name.c_str()); }

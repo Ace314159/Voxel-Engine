@@ -15,7 +15,7 @@ public:
 
 	void updatePos(const glm::vec3& newPos) {
 		pos = newPos;
-		glm::translate(model, pos);
+		model = glm::translate(glm::mat4(1.0f), pos);
 	};
 
 	virtual void render() {
