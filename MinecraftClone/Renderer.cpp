@@ -8,19 +8,16 @@ blockMaterial(blockShader, blocksSheet) {
 
 	// UBO Setup for Shaders
 	// Cube Shader
-	GLuint uniformCameraIndex = glGetUniformBlockIndex(blockShader.ID, "Camera");
-	glUniformBlockBinding(blockShader.ID, uniformCameraIndex, 0);
+	glUniformBlockBinding(blockShader.ID, glGetUniformBlockIndex(blockShader.ID, "Camera"), 0);
+
+	// Init
+	Block::init();
 };
 
 GLFWwindow* Renderer::initWindow() {
 	glfwInit();
-#ifdef _DEBUG
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-#else
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-#endif
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE.c_str(), nullptr, nullptr);
@@ -61,7 +58,8 @@ void Renderer::render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	camera.update();
-	for(const auto& obj : objects) obj->render();
+	for(const auto& obj : objects)
+		obj->render();
 	hud.render();
 
 	glfwSwapBuffers(window);
@@ -132,6 +130,9 @@ void APIENTRY glDebugCallback(GLenum source, GLenum mType, GLuint id, GLenum sev
 	}
 
 	switch(severity) {
+	case GL_DEBUG_SEVERITY_NOTIFICATION:
+		std::cout << "GL NOTIFICATION - " + src + " " + type + ": " + message << std::endl;
+		break;
 	case GL_DEBUG_SEVERITY_LOW:
 		std::cout << "GL LOW - " + src + " " + type + ": " + message << std::endl;
 		break;

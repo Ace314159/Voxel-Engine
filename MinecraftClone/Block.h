@@ -5,23 +5,24 @@
 
 class Block : public Object {
 private:
-	GLuint VAO, VBO, EBO;
+	static GLuint VAO, EBO;
+	GLuint VBO;
 
 	ObjectVertex vertices[6 * 4] = {
 		// Front
-		{glm::vec3( 0.5,  0.5,  0.5), glm::vec2()},
+		{glm::vec3(0.5,  0.5,  0.5), glm::vec2()},
 		{glm::vec3(-0.5,  0.5,  0.5), glm::vec2()},
 		{glm::vec3(-0.5, -0.5,  0.5), glm::vec2()},
-		{glm::vec3( 0.5, -0.5,  0.5), glm::vec2()},
+		{glm::vec3(0.5, -0.5,  0.5), glm::vec2()},
 		// Right
-		{glm::vec3( 0.5,  0.5, -0.5), glm::vec2()},
-		{glm::vec3( 0.5,  0.5,  0.5), glm::vec2()},
-		{glm::vec3( 0.5, -0.5,  0.5), glm::vec2()},
-		{glm::vec3( 0.5, -0.5, -0.5), glm::vec2()},
+		{glm::vec3(0.5,  0.5, -0.5), glm::vec2()},
+		{glm::vec3(0.5,  0.5,  0.5), glm::vec2()},
+		{glm::vec3(0.5, -0.5,  0.5), glm::vec2()},
+		{glm::vec3(0.5, -0.5, -0.5), glm::vec2()},
 		// Back
 		{glm::vec3(-0.5,  0.5, -0.5), glm::vec2()},
-		{glm::vec3( 0.5,  0.5, -0.5), glm::vec2()},
-		{glm::vec3( 0.5, -0.5, -0.5), glm::vec2()},
+		{glm::vec3(0.5,  0.5, -0.5), glm::vec2()},
+		{glm::vec3(0.5, -0.5, -0.5), glm::vec2()},
 		{glm::vec3(-0.5, -0.5, -0.5), glm::vec2()},
 		// Left
 		{glm::vec3(-0.5,  0.5,  0.5), glm::vec2()},
@@ -29,25 +30,18 @@ private:
 		{glm::vec3(-0.5, -0.5, -0.5), glm::vec2()},
 		{glm::vec3(-0.5, -0.5,  0.5), glm::vec2()},
 		// Top
-		{glm::vec3( 0.5,  0.5, -0.5), glm::vec2()},
+		{glm::vec3(0.5,  0.5, -0.5), glm::vec2()},
 		{glm::vec3(-0.5,  0.5, -0.5), glm::vec2()},
 		{glm::vec3(-0.5,  0.5,  0.5), glm::vec2()},
-		{glm::vec3( 0.5,  0.5,  0.5), glm::vec2()},
+		{glm::vec3(0.5,  0.5,  0.5), glm::vec2()},
 		// Bottom
-		{glm::vec3( 0.5, -0.5,  0.5), glm::vec2()},
+		{glm::vec3(0.5, -0.5,  0.5), glm::vec2()},
 		{glm::vec3(-0.5, -0.5,  0.5), glm::vec2()},
 		{glm::vec3(-0.5, -0.5, -0.5), glm::vec2()},
-		{glm::vec3( 0.5, -0.5, -0.5), glm::vec2()},
+		{glm::vec3(0.5, -0.5, -0.5), glm::vec2()},
 	};
 
-	GLuint indices[6 * 3 * 2] = {
-		 0,  1,  2,  2,  3,  0, // Front
-		 4,  5,  6,  6,  7,  4, // Right
-		 8,  9, 10, 10, 11,  8, // Back
-		12, 13, 14, 14, 15, 12, // Left
-		16, 17, 18, 18, 19, 16, // Top
-		20, 21, 22, 22, 23, 20, // Bottom
-	};
+	static GLuint indices[6 * 3 * 2];
 
 	int ID;
 	void setTexCoords();
@@ -56,5 +50,7 @@ public:
 	Block(Material& shader, int ID, const glm::vec3& pos);
 
 	void render() override;
+
+	static void init();
 };
 

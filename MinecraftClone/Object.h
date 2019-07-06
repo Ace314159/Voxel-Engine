@@ -18,7 +18,9 @@ public:
 		model = glm::translate(glm::mat4(1), pos);
 	};
 
-	virtual void render() {
+	virtual void render() = 0;
+
+	void useMaterial() {
 		material.use();
 		material.shader.setMat("model", model);
 	};
