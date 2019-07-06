@@ -6,11 +6,11 @@ Shader::Shader(const std::string& shaderName) {
 
 	std::stringstream vBuffer;
 	vBuffer << vShaderFile.rdbuf();
-	std::string vShaderCode = vBuffer.str().c_str();
 	std::stringstream fBuffer;
 	fBuffer << fShaderFile.rdbuf();
-	std::string fShaderCode = fBuffer.str();
 
+	const std::string& vShaderCode = vBuffer.str();
+	const std::string& fShaderCode = fBuffer.str();
 	const char* vShaderCodeC = vShaderCode.c_str();
 	const char* fShaderCodeC = fShaderCode.c_str();
 
