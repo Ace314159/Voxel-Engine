@@ -7,7 +7,7 @@ private:
 	glm::vec3 pos;
 protected:
 	Material& material;
-	glm::mat4 model = glm::mat4(1.0f);
+	glm::mat4 model = glm::mat4(1);
 public:
 	Object(Material& material, const glm::vec3& pos) : material(material) {
 		updatePos(pos);
@@ -15,7 +15,7 @@ public:
 
 	void updatePos(const glm::vec3& newPos) {
 		pos = newPos;
-		model = glm::translate(glm::mat4(1.0f), pos);
+		model = glm::translate(glm::mat4(1), pos);
 	};
 
 	virtual void render() {

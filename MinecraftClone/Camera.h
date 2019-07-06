@@ -13,9 +13,9 @@ private:
 	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCREEN_WIDTH / SCREEN_HEIGHT,
 		0.1f, 100.0f);
 	// Makes View Matrix
-	glm::vec3 pos = glm::vec3(0.0f, 0.0f, 3.0f);
-	glm::vec3 front = glm::vec3(0.0f, 0.0f, -1.0f);
-	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+	glm::vec3 pos = glm::vec3(0, 1, 0);
+	glm::vec3 front = glm::vec3(0, 0, -1);
+	glm::vec3 up = glm::vec3(0, 1, 0);
 
 	const float speed = 0.1f;
 	const double sensitivity = 0.1;
