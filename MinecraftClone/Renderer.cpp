@@ -23,11 +23,12 @@ GLFWwindow* Renderer::initWindow() {
 #endif
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Minecraft Clone", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE.c_str(), nullptr, nullptr);
 	if(window == nullptr) {
 		throw std::runtime_error("Window failed to create!");
 		glfwTerminate();
 	}
+	prevFrameTime = glfwGetTime();
 	glfwMakeContextCurrent(window);
 	glfwSetWindowUserPointer(window, &camera);
 
@@ -67,6 +68,19 @@ void Renderer::render() {
 	glfwPollEvents();
 
 	handleEvents();
+
+	updateWindowTitle();
+}
+
+void Renderer::updateWindowTitle() {
+	frameCount++;
+	double curTime = glfwGetTime();
+	if(curTime - prevFrameTime >= 1) {
+		double fps = frameCount / (curTime - prevFrameTime);
+		glfwSetWindowTitle(window, (WINDOW_TITLE + " - " + std::to_string(fps) + " FPS").c_str());
+		frameCount = 0;
+		prevFrameTime = curTime;
+	}
 }
 
 void Renderer::handleEvents() {

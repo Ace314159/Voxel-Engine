@@ -16,7 +16,6 @@ private:
 	Camera camera;
 
 	HUD hud;
-
 	// Shaders
 	Shader blockShader;
 	// Texture Sheets
@@ -25,6 +24,12 @@ private:
 	Material blockMaterial;
 
 	std::list<std::unique_ptr<Object>> objects;
+
+	// Frame Counter
+	const std::string WINDOW_TITLE = "Minecraft Clone";
+	double prevFrameTime;
+	unsigned int frameCount = 0;
+	void updateWindowTitle();
 public:
 	Renderer();
 	GLFWwindow* initWindow();
