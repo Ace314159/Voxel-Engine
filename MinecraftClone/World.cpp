@@ -24,6 +24,9 @@ World::World() : shader("block"), blockAtlas("blocks.png") {
 
 void World::generateChunks() {
 	chunks.try_emplace({0, 0}, terrainGenerator->generateChunk(this, {0, 0}));
+	chunks.try_emplace({-1, 0}, terrainGenerator->generateChunk(this, {-1, 0}));
+	chunks.try_emplace({0, -1}, terrainGenerator->generateChunk(this, {0, -1}));
+	chunks.try_emplace({-1, -1}, terrainGenerator->generateChunk(this, {-1, -1}));
 }
 
 void World::render() {

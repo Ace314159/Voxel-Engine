@@ -12,7 +12,7 @@ std::unique_ptr<Chunk> FlatTerrainGenerator::generateChunk(World* world, Chunk::
 
 		for(int x = 0; x < CHUNK_X_LEN; x++) {
 			for(int z = 0; z < CHUNK_Z_LEN; z++) {
-				blocks.emplace_back(*blockType, glm::vec3(x, y, z));
+				blocks.emplace_back(*blockType, glm::vec3(key.x * CHUNK_X_LEN + x, y, key.z * CHUNK_Z_LEN + z));
 			}
 		}
 	}

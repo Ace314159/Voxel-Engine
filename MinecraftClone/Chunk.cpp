@@ -34,4 +34,5 @@ unsigned int Chunk::getMaxHeight(unsigned int x, unsigned int z) {
 	for(int y = CHUNK_Y_LEN - 1; y >= 0; y--) {
 		if(blocks[getArrIndex(x, y, z)].type != BlockTypes::Air) return y;
 	}
+	return 0;
 }
