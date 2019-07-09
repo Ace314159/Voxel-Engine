@@ -17,12 +17,13 @@ private:
 	glm::vec3 front = glm::vec3(0, 0, -1);
 	glm::vec3 up = glm::vec3(0, 1, 0);
 
-	const float speed = 0.1f;
+	const double baseSpeed = 10;
 	const double sensitivity = 0.1;
 
 	double yaw = -90;
 	double pitch = 0;
 	double prevX = SCREEN_WIDTH / 2, prevY = SCREEN_HEIGHT / 2;
+	double prevTime;
 	double enabled = true;
 public:
 	Camera(GLFWwindow* window);

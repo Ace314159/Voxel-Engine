@@ -17,9 +17,17 @@ Camera::Camera(GLFWwindow* window) : window(window) {
 		if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
 			((Camera*)glfwGetWindowUserPointer(window))->enable();
 	});
+
+	prevTime = glfwGetTime();
 }
 
 void Camera::update() {
+	double curTime = glfwGetTime();
+	double deltaTime = curTime - prevTime;
+	prevTime = curTime;
+
+	 float speed = baseSpeed * deltaTime;
+
 	if(!enabled) return;
 	if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) pos += speed * front;
 	if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) pos -= speed * front;
