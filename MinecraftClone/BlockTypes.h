@@ -9,6 +9,10 @@ struct BlockType {
 	bool operator==(const BlockType& type) const {
 		return ID == type.ID;
 	}
+
+	bool operator!=(const BlockType& type) const {
+		return ID != type.ID;
+	}
 };
 
 namespace BlockTypes {

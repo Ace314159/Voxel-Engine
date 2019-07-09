@@ -3,6 +3,7 @@
 
 Renderer::Renderer() : window(initWindow()), camera(window) {
 	camera.enable();
+	camera.setInitialY(world.chunks[{0, 0}]->getMaxHeight(0, 0) + 2);
 };
 
 GLFWwindow* Renderer::initWindow() {

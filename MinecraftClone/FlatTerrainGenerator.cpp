@@ -2,7 +2,7 @@
 
 #include "FlatTerrainGenerator.h"
 
-std::unique_ptr<Chunk> FlatTerrainGenerator::generateChunk(Chunk::Key key) {
+std::unique_ptr<Chunk> FlatTerrainGenerator::generateChunk(World* world, Chunk::Key key) {
 	std::vector<Block> blocks;
 	const BlockType* blockType;
 	for(int y = 0; y < CHUNK_Y_LEN; y++) {
@@ -16,5 +16,5 @@ std::unique_ptr<Chunk> FlatTerrainGenerator::generateChunk(Chunk::Key key) {
 			}
 		}
 	}
-	return std::make_unique<Chunk>(blocks);
+	return std::make_unique<Chunk>(world, blocks);
 };

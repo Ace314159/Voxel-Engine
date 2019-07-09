@@ -26,7 +26,7 @@ void Camera::update() {
 	double deltaTime = curTime - prevTime;
 	prevTime = curTime;
 
-	 float speed = baseSpeed * deltaTime;
+	 float speed = float(baseSpeed * deltaTime);
 
 	if(!enabled) return;
 	if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) pos += speed * front;

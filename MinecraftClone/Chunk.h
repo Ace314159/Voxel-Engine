@@ -11,7 +11,7 @@ private:
 
 	std::vector<Block> blocks;
 public:
-	Chunk(const std::vector<Block>& blocks);
+	Chunk(World* world, const std::vector<Block>& blocks);
 
 	static size_t getArrIndex(unsigned int x, unsigned int y, unsigned int z) { 
 		return CHUNK_X_LEN * CHUNK_Z_LEN * y + CHUNK_X_LEN * z + x;
@@ -26,6 +26,7 @@ public:
 	void makeMesh(World* world);
 	void render() const;
 	const BlockType& getBlock(unsigned int x, unsigned int y, unsigned int z) const;
+	unsigned int getMaxHeight(unsigned int x, unsigned int z);
 };
 
 namespace std {

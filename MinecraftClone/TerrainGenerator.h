@@ -4,5 +4,5 @@
 
 class TerrainGenerator {
 public:
-	virtual std::unique_ptr<Chunk> generateChunk(Chunk::Key key) = 0;
+	virtual std::unique_ptr<Chunk> generateChunk(World* world, Chunk::Key key) = 0;
 };

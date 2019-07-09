@@ -13,9 +13,9 @@ private:
 	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCREEN_WIDTH / SCREEN_HEIGHT,
 		0.1f, 100.0f);
 	// Makes View Matrix
-	glm::vec3 pos = glm::vec3(0, 1, 0);
-	glm::vec3 front = glm::vec3(0, 0, -1);
-	glm::vec3 up = glm::vec3(0, 1, 0);
+	glm::vec3 pos;
+	glm::vec3 front;
+	glm::vec3 up;
 
 	const double baseSpeed = 10;
 	const double sensitivity = 0.1;
@@ -32,5 +32,6 @@ public:
 	void updateMousePos(double x, double y);
 	void enable() { enabled = true; glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); };
 	void disable() { enabled = false; glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);};
+	void setInitialY(unsigned int y) { this->pos = {0, y, 0}; front = {0, y, -1}; up = {0, y + 1, 0}; };
 };
 

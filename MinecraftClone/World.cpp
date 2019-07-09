@@ -23,8 +23,7 @@ World::World() : shader("block"), blockAtlas("blocks.png") {
 }
 
 void World::generateChunks() {
-	chunks.try_emplace({0, 0}, terrainGenerator->generateChunk({0, 0}));
-	chunks[{0, 0}]->makeMesh(this);
+	chunks.try_emplace({0, 0}, terrainGenerator->generateChunk(this, {0, 0}));
 }
 
 void World::render() {

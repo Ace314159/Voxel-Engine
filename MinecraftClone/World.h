@@ -9,13 +9,13 @@ class World {
 private:
 	GLuint VAO;
 
-	std::unordered_map<Chunk::Key, std::unique_ptr<Chunk>> chunks;
 	std::unique_ptr<TerrainGenerator> terrainGenerator = std::make_unique<FlatTerrainGenerator>();
 
 	Shader shader;
 	TextureAtlas blockAtlas;
 public:
 	World();
+	std::unordered_map<Chunk::Key, std::unique_ptr<Chunk>> chunks;
 
 	void generateChunks();
 	void render();
