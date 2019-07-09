@@ -2,25 +2,32 @@
 
 #include "Shader.h"
 #include "Texture.h"
-#include "Vertex.h"
 
 class HUD {
 private:
 	Shader shader;
+	GLuint VAO;
 
 	class Item {
 	private:
-		GLuint VAO, VBO, EBO;
+		GLuint VBO, EBO;
 
 		float x, y; // Center
 		float width, height;
 
-		HUDVertex vertices[4];
+		struct Vertex {
+			glm::vec2 pos;
+			glm::vec2 texCoord;
+		};
+
+		Vertex vertices[4];
 
 		GLuint indices[6] = {
 			0, 1, 2,
 			2, 3, 0,
 		};
+
+		friend class HUD;
 	public:
 		Texture tex;
 		const Shader& shader;
@@ -32,6 +39,8 @@ private:
 
 	// Items
 	Item crosshair;
+
+	GLuint createVAO();
 public:
 	HUD();
 

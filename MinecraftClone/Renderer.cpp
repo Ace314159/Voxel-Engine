@@ -1,17 +1,8 @@
 #include "stdafx.h"
 #include "Renderer.h"
-#include "Block.h"
 
-Renderer::Renderer() : window(initWindow()), camera(window), blockShader("block"), blocksSheet("blocks"),
-blockMaterial(blockShader, blocksSheet) {
+Renderer::Renderer() : window(initWindow()), camera(window) {
 	camera.enable();
-
-	// UBO Setup for Shaders
-	// Cube Shader
-	glUniformBlockBinding(blockShader.ID, glGetUniformBlockIndex(blockShader.ID, "Camera"), 0);
-
-	// Init
-	Block::init();
 };
 
 GLFWwindow* Renderer::initWindow() {
@@ -47,6 +38,8 @@ GLFWwindow* Renderer::initWindow() {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glfwSwapInterval(0);
+
 	glViewport(0, 0, 1280, 720);
 	glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {
 		glViewport(0, 0, width, height);
@@ -60,8 +53,7 @@ void Renderer::render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	camera.update();
-	for(const auto& obj : objects)
-		obj->render();
+	world.render();
 	hud.render();
 
 	glfwSwapBuffers(window);
@@ -127,7 +119,7 @@ void APIENTRY glDebugCallback(GLenum source, GLenum mType, GLuint id, GLenum sev
 		type = "Performance Error";
 		break;
 	case GL_DEBUG_TYPE_OTHER:
-		type = "Other Error";
+		type = "Other Message";
 		break;
 	}
 
