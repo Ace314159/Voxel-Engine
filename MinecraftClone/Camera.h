@@ -15,7 +15,7 @@ private:
 	// Makes View Matrix
 	glm::vec3 pos;
 	glm::vec3 front;
-	glm::vec3 up;
+	glm::vec3 up{0, 1, 0};
 
 	const double baseSpeed = 10;
 	const double sensitivity = 0.1;
@@ -32,6 +32,6 @@ public:
 	void updateMousePos(double x, double y);
 	void enable() { enabled = true; glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); };
 	void disable() { enabled = false; glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);};
-	void setInitialY(unsigned int y) { this->pos = {0, y, 0}; front = {0, y, -1}; up = {0, y + 1, 0}; };
+	void setInitialY(unsigned int y) { this->pos = {0, y, 0}; front = {0, y, -1}; };
 };
 
