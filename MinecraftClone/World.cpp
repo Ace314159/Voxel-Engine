@@ -27,6 +27,10 @@ void World::generateChunks() {
 	chunks.try_emplace({-1, 0}, terrainGenerator->generateChunk(this, {-1, 0}));
 	chunks.try_emplace({0, -1}, terrainGenerator->generateChunk(this, {0, -1}));
 	chunks.try_emplace({-1, -1}, terrainGenerator->generateChunk(this, {-1, -1}));
+	chunks[{0, 0}]->makeMesh(this);
+	chunks[{-1, 0}]->makeMesh(this);
+	chunks[{0, -1}]->makeMesh(this);
+	chunks[{-1, -1}]->makeMesh(this);
 }
 
 void World::render() {
@@ -41,14 +45,18 @@ void World::render() {
 }
 
 const BlockType& World::getBlock(int x, int y, int z) const {
-	int chunkX = x / CHUNK_X_LEN;
-	int chunkZ = z / CHUNK_Y_LEN;
+	int chunkX, chunkZ;
+	if(x < 0) chunkX = (x + 1) / CHUNK_X_LEN - 1;
+	else chunkX = x / CHUNK_X_LEN;
+	if(z < 0) chunkZ = (z + 1) / CHUNK_Z_LEN - 1;
+	else chunkZ = z / CHUNK_Z_LEN;
 
 	if(chunks.find({chunkX, chunkZ}) == chunks.end() || y >= CHUNK_Y_LEN || y < 0) return BlockTypes::Air;
-	if(x < 0) x = CHUNK_X_LEN - (-x % CHUNK_X_LEN);
-	else x %= CHUNK_X_LEN;
-	if(z < 0) z = CHUNK_Z_LEN - (-z % CHUNK_Z_LEN);
-	else z %= CHUNK_Z_LEN;
 
-	return chunks.at({chunkX, chunkZ})->getBlock((unsigned int)x, (unsigned int)y, (unsigned int)z);
+	if(x < 0) x = CHUNK_X_LEN - (-(x + 1) % CHUNK_X_LEN) - 1;
+	else x = x % CHUNK_X_LEN;
+	if(z < 0) z = CHUNK_Z_LEN - (-(z + 1) % CHUNK_Z_LEN) - 1;
+	else z = abs(z % CHUNK_Z_LEN);
+
+	return chunks.at({chunkX, chunkZ})->getBlock(x, y, z);
 }

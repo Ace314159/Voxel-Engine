@@ -3,7 +3,7 @@
 #include "Chunk.h"
 #include "World.h"
 
-Chunk::Chunk(World* world, const std::vector<Block>& blocks) : blocks(blocks) { makeMesh(world); }
+Chunk::Chunk(World* world, const std::vector<Block>& blocks) : blocks(blocks) {}
 
 void Chunk::makeMesh(World* world) {
 	mesh.clear();

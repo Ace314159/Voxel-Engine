@@ -10,9 +10,11 @@ std::unique_ptr<Chunk> FlatTerrainGenerator::generateChunk(World* world, Chunk::
 		else if(y == 3) blockType = &BlockTypes::Grass;
 		else blockType = &BlockTypes::Air;
 
-		for(int x = 0; x < CHUNK_X_LEN; x++) {
-			for(int z = 0; z < CHUNK_Z_LEN; z++) {
-				blocks.emplace_back(*blockType, glm::vec3(key.x * CHUNK_X_LEN + x, y, key.z * CHUNK_Z_LEN + z));
+		for(int z = 0; z < CHUNK_Z_LEN; z++) {
+			int worldZ = key.z * CHUNK_Z_LEN + z;
+			for(int x = 0; x < CHUNK_X_LEN; x++) {
+				int worldX = key.x * CHUNK_X_LEN + x;
+				blocks.emplace_back(*blockType, glm::vec3(worldX, y, worldZ));
 			}
 		}
 	}
