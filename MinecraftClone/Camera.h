@@ -15,7 +15,7 @@ private:
 	// Makes View Matrix
 	glm::vec3 pos;
 	glm::vec3 front;
-	glm::vec3 up{0, 1, 0};
+	const glm::vec3 up{0, 1, 0};
 
 	const double baseSpeed = 10;
 	const double sensitivity = 0.1;

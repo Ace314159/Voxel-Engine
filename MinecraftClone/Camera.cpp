@@ -29,10 +29,11 @@ void Camera::update() {
 	 float speed = float(baseSpeed * deltaTime);
 
 	if(!enabled) return;
-	if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) pos += speed * front;
-	if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) pos -= speed * front;
-	if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) pos -= glm::normalize(glm::cross(front, up)) * speed;
-	if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) pos += glm::normalize(glm::cross(front, up)) * speed;
+	glm::vec3 front0Y{front.x, 0, front.z};
+	if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) pos += speed * front0Y;
+	if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) pos -= speed * front0Y;
+	if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) pos -= glm::normalize(glm::cross(front0Y, up)) * speed;
+	if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) pos += glm::normalize(glm::cross(front0Y, up)) * speed;
 	if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) pos += up * speed;
 	if(glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) pos -= up * speed;
 
