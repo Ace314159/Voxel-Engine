@@ -29,7 +29,7 @@ void Camera::update() {
 	 float speed = float(baseSpeed * deltaTime);
 
 	if(!enabled) return;
-	glm::vec3 front0Y{front.x, 0, front.z};
+	glm::vec3 front0Y = glm::normalize(glm::vec3(front.x, 0, front.z));
 	if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) pos += speed * front0Y;
 	if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) pos -= speed * front0Y;
 	if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) pos -= glm::normalize(glm::cross(front0Y, up)) * speed;
