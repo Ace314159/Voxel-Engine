@@ -62,5 +62,6 @@ HUD::HUD() : VAO(createVAO()), shader("hud"),
 void HUD::render() {
 	glBindVertexArray(VAO);
 
+	glClear(GL_DEPTH_BUFFER_BIT);
 	crosshair.render();
 }
