@@ -29,6 +29,8 @@ GLFWwindow* Renderer::initWindow() {
 	glEnable(GL_DEBUG_OUTPUT);
 	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 	glDebugMessageCallback(glDebugCallback, nullptr);
+	GLuint ignoredIDs[] = {0x20071};
+	glDebugMessageControl(GL_DEBUG_SOURCE_API, GL_DEBUG_TYPE_OTHER, GL_DONT_CARE, 1, ignoredIDs, GL_FALSE);
 	glfwSetErrorCallback([](int errorCode, const char* desc) {
 		char error[255];
 		sprintf_s(error, "GLFW Error %d: %s\n", errorCode, desc);
