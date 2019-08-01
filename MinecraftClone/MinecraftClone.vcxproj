@@ -180,6 +180,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Chunk.cpp" />
+    <ClCompile Include="DefaultTerrainGenerator.cpp" />
     <ClCompile Include="FlatTerrainGenerator.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="BlockTypes.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Chunk.h" />
+    <ClInclude Include="DefaultTerrainGenerator.h" />
     <ClInclude Include="FlatTerrainGenerator.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Mesh.h" />

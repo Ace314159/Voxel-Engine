@@ -2,6 +2,7 @@
 
 #include "Chunk.h"
 #include "Shader.h"
+#include "DefaultTerrainGenerator.h"
 #include "FlatTerrainGenerator.h"
 #include "TextureAtlas.h"
 
@@ -9,7 +10,7 @@ class World {
 private:
 	GLuint VAO;
 
-	std::unique_ptr<TerrainGenerator> terrainGenerator = std::make_unique<FlatTerrainGenerator>();
+	std::unique_ptr<TerrainGenerator> terrainGenerator = std::make_unique<DefaultTerrainGenerator>(123);
 
 	Shader shader;
 	TextureAtlas blockAtlas;
