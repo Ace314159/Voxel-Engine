@@ -17,3 +17,5 @@ constexpr int CHUNK_X_LEN = 16;
 constexpr int CHUNK_Y_LEN = 16;
 constexpr int CHUNK_Z_LEN = 16;
 constexpr int CHUNK_VOLUME = CHUNK_X_LEN * CHUNK_Y_LEN * CHUNK_Z_LEN;
+
+constexpr int RENDER_DISTANCE = 10;
