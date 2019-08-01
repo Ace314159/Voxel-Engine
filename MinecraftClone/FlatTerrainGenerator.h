@@ -3,6 +3,8 @@
 #include "TerrainGenerator.h"
 
 class FlatTerrainGenerator : public TerrainGenerator {
+private:
+	const int GRASS_Y = 3;
 public:
 	std::unique_ptr<Chunk> generateChunk(World* world, Chunk::Key key) override;
 };
