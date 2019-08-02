@@ -4,7 +4,6 @@
 
 std::unique_ptr<Chunk> FlatTerrainGenerator::generateChunk(World* world, Chunk::Key key) {
 	std::vector<Block> blocks;
-	const BlockType* blockType;
 
 	for(int z = 0; z < CHUNK_Z_LEN; z++) {
 		int worldZ = key.z * CHUNK_Z_LEN + z;
