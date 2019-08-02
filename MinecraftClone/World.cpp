@@ -48,18 +48,13 @@ void World::render() {
 }
 
 const BlockType& World::getBlock(int x, int y, int z) const {
-	int chunkX, chunkZ;
-	if(x < 0) chunkX = (x + 1) / CHUNK_X_LEN - 1;
-	else chunkX = x / CHUNK_X_LEN;
-	if(z < 0) chunkZ = (z + 1) / CHUNK_Z_LEN - 1;
-	else chunkZ = z / CHUNK_Z_LEN;
+	int chunkX = getChunkCoord(x, CHUNK_X_LEN), chunkZ = getChunkCoord(z, CHUNK_Z_LEN);
 
-	if(chunks.find({chunkX, chunkZ}) == chunks.end() || y >= CHUNK_Y_LEN || y < 0) return BlockTypes::Air;
+	if(chunks.find({chunkX, chunkZ}) == chunks.end()) throw std::runtime_error("Block doesn't exist!");
+	if(y >= CHUNK_Y_LEN || y < 0) return BlockTypes::Air;
 
-	if(x < 0) x = CHUNK_X_LEN - (-(x + 1) % CHUNK_X_LEN) - 1;
-	else x = x % CHUNK_X_LEN;
-	if(z < 0) z = CHUNK_Z_LEN - (-(z + 1) % CHUNK_Z_LEN) - 1;
-	else z = abs(z % CHUNK_Z_LEN);
+	int blockX = getBlockCoord(x, chunkX, CHUNK_X_LEN);
+	int blockZ = getBlockCoord(z, chunkZ, CHUNK_Z_LEN);
 
-	return chunks.at({chunkX, chunkZ})->getBlock(x, y, z);
+	return chunks.at({chunkX, chunkZ})->getBlock(blockX, y, blockZ);
 }

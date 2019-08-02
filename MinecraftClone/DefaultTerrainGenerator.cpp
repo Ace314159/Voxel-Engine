@@ -1,15 +1,16 @@
 #include "stdafx.h"
 
 #include "DefaultTerrainGenerator.h"
+#include "World.h"
 
 DefaultTerrainGenerator::DefaultTerrainGenerator(uint32_t seed) : perlin(seed) {}
 
 std::unique_ptr<Chunk> DefaultTerrainGenerator::generateChunk(World* world, Chunk::Key key) {
 	std::vector<Block> blocks;
 	for(int z = 0; z < CHUNK_Z_LEN; z++) {
-		int worldZ = key.z * CHUNK_Z_LEN + z;
+		int worldZ = world->getWorldCoord(key.z, z, CHUNK_Z_LEN);
 		for(int x = 0; x < CHUNK_X_LEN; x++) {
-			int worldX = key.x * CHUNK_X_LEN + x;
+			int worldX = world->getWorldCoord(key.x, x, CHUNK_X_LEN);
 
 			double perlinX;
 			if(key.x < 0) perlinX = key.x - (double)x / CHUNK_X_LEN;
