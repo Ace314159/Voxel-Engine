@@ -32,6 +32,6 @@ public:
 	void updateMousePos(double x, double y);
 	void enable() { enabled = true; glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); };
 	void disable() { enabled = false; glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);};
-	void setInitialY(unsigned int y) { this->pos = {0, y, 0}; front = {0, y, -1}; };
+	void setInitialY(unsigned int y) { this->pos = {0.5, y, 0.5}; front = {0, y, -1}; };
 };
 

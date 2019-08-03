@@ -14,6 +14,8 @@ private:
 
 	Shader shader;
 	TextureAtlas blockAtlas;
+
+	const int RENDER_DISTANCE = 5;
 public:
 	World();
 	std::unordered_map<Chunk::Key, std::unique_ptr<Chunk>> chunks;

@@ -19,6 +19,7 @@ World::World() : shader("block"), blockAtlas("blocks.png") {
 	// UBO Setup for Shader
 	glUniformBlockBinding(shader.ID, glGetUniformBlockIndex(shader.ID, "Camera"), 0);
 
+	chunks.try_emplace({0, 0}, std::move(terrainGenerator->generateChunk(this, {0, 0})));
 }
 
 void World::generateChunk() {
