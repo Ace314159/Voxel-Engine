@@ -25,12 +25,10 @@ public:
 		else return worldCoord / chunkCoordLen;
 	};
 	int getWorldCoord(int chunkCoord, int blockCoord, int chunkCoordLen) const {
-		if(chunkCoord < 0) return (chunkCoord + 1) * chunkCoordLen - 1 - blockCoord;
-		else return chunkCoord * chunkCoordLen + blockCoord;
+		return chunkCoord * chunkCoordLen + blockCoord;
 	}
 	int getBlockCoord(int worldCoord, int chunkCoord, int chunkCoordLen) const {
-		if(chunkCoord < 0) return (chunkCoord + 1) * chunkCoordLen - 1 - worldCoord;
-		else return chunkCoord * chunkCoordLen + worldCoord;
+		return worldCoord - chunkCoord * chunkCoordLen;
 	}
 
 	bool generatingChunks = true;
