@@ -35,7 +35,7 @@ public:
 	int generatingChunkX = -RENDER_DISTANCE;
 	int generatingChunkZ = -RENDER_DISTANCE;
 
-	void generateChunks();
+	void generateChunk();
 	void render();
 	const BlockType& getBlock(int x, int y, int z) const;
 };

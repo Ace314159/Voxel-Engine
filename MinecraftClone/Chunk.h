@@ -8,6 +8,7 @@ class World;
 class Chunk {
 private:
 	Mesh mesh;
+	bool canRender = false;
 
 	std::vector<Block> blocks;
 public:

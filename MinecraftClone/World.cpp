@@ -19,20 +19,34 @@ World::World() : shader("block"), blockAtlas("blocks.png") {
 	// UBO Setup for Shader
 	glUniformBlockBinding(shader.ID, glGetUniformBlockIndex(shader.ID, "Camera"), 0);
 
-	generateChunks();
 }
 
-void World::generateChunks() {
-	for(int x = -RENDER_DISTANCE; x <= RENDER_DISTANCE; x++) {
-		for(int z = -RENDER_DISTANCE; z <= RENDER_DISTANCE; z++) {
-			chunks.try_emplace({x, z}, terrainGenerator->generateChunk(this, {x, z}));
-		}
-	}
+void World::generateChunk() {
+	int x = generatingChunkX;
+	int z = generatingChunkZ;
 
-	for(int x = -RENDER_DISTANCE; x <= RENDER_DISTANCE; x++) {
-		for(int z = -RENDER_DISTANCE; z <= RENDER_DISTANCE; z++) {
-			chunks[{x, z}]->makeMesh(this);
-		}
+	Chunk::Key key;
+	key = {x - 1, z + 0};
+	if(chunks.find(key) == chunks.end())
+		chunks.try_emplace(key, std::move(terrainGenerator->generateChunk(this, key)));
+	key = {x + 1, z + 0};
+	if(chunks.find(key) == chunks.end())
+		chunks.try_emplace(key, std::move(terrainGenerator->generateChunk(this, key)));
+	key = {x + 0, z - 1};
+	if(chunks.find(key) == chunks.end())
+		chunks.try_emplace(key, std::move(terrainGenerator->generateChunk(this, key)));
+	key = {x + 0, z + 1};
+	if(chunks.find(key) == chunks.end())
+		chunks.try_emplace(key, std::move(terrainGenerator->generateChunk(this, key)));
+	key = {x + 0, z + 0};
+	if(chunks.find(key) == chunks.end())
+		chunks.try_emplace(key, std::move(terrainGenerator->generateChunk(this, key)));
+
+	chunks[key]->makeMesh(this);
+
+	if(++generatingChunkX > RENDER_DISTANCE) {
+		generatingChunkX = -RENDER_DISTANCE;
+		if(++generatingChunkZ > RENDER_DISTANCE) generatingChunks = false;
 	}
 }
 
@@ -48,7 +62,8 @@ void World::render() {
 }
 
 const BlockType& World::getBlock(int x, int y, int z) const {
-	int chunkX = getChunkCoord(x, CHUNK_X_LEN), chunkZ = getChunkCoord(z, CHUNK_Z_LEN);
+	int chunkX = getChunkCoord(x, CHUNK_X_LEN);
+	int chunkZ = getChunkCoord(z, CHUNK_Z_LEN);
 
 	if(chunks.find({chunkX, chunkZ}) == chunks.end()) throw std::runtime_error("Block doesn't exist!");
 	if(y >= CHUNK_Y_LEN || y < 0) return BlockTypes::Air;
