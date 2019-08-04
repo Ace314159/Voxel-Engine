@@ -7,6 +7,10 @@
 class DefaultTerrainGenerator : public TerrainGenerator {
 private:
 	siv::PerlinNoise perlin;
+
+	double freq = 5;
+	int32_t numOctaves = 5;
+	double exponent = 0.75;
 public:
 	DefaultTerrainGenerator(uint32_t seed);
 

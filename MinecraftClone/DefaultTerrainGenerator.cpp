@@ -7,6 +7,8 @@ DefaultTerrainGenerator::DefaultTerrainGenerator(uint32_t seed) : perlin(seed) {
 
 std::unique_ptr<Chunk> DefaultTerrainGenerator::generateChunk(World* world, Chunk::Key key) {
 	std::vector<Block> blocks;
+	blocks.reserve(CHUNK_VOLUME);
+
 	for(int z = 0; z < CHUNK_Z_LEN; z++) {
 		int worldZ = world->getWorldCoord(key.z, z, CHUNK_Z_LEN);
 		for(int x = 0; x < CHUNK_X_LEN; x++) {
@@ -16,7 +18,8 @@ std::unique_ptr<Chunk> DefaultTerrainGenerator::generateChunk(World* world, Chun
 
 			double perlinZ = key.z + (double)z / CHUNK_Z_LEN;
 
-			int elevation = abs((int)round(perlin.noise(perlinX, perlinZ) * CHUNK_Y_LEN));
+			double e = perlin.octaveNoise0_1(perlinX / freq, perlinZ / freq, numOctaves);
+			int elevation = abs((int)round(pow(e, exponent) * CHUNK_Y_LEN));
 			for(int y = 0; y < elevation; y++) {
 				blocks.emplace_back(BlockTypes::Dirt, glm::vec3(worldX, y, worldZ));
 			}
