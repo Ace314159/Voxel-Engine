@@ -12,13 +12,9 @@ std::unique_ptr<Chunk> DefaultTerrainGenerator::generateChunk(World* world, Chun
 		for(int x = 0; x < CHUNK_X_LEN; x++) {
 			int worldX = world->getWorldCoord(key.x, x, CHUNK_X_LEN);
 
-			double perlinX;
-			if(key.x < 0) perlinX = key.x - (double)x / CHUNK_X_LEN;
-			else perlinX = key.x + (double)x / CHUNK_X_LEN;
+			double perlinX = key.x + (double)x / CHUNK_X_LEN;
 
-			double perlinZ;
-			if(key.z < 0) perlinZ = key.z - (double)z / CHUNK_Z_LEN;
-			else perlinZ = key.z + (double)z / CHUNK_Z_LEN;
+			double perlinZ = key.z + (double)z / CHUNK_Z_LEN;
 
 			int elevation = abs((int)round(perlin.noise(perlinX, perlinZ) * CHUNK_Y_LEN));
 			for(int y = 0; y < elevation; y++) {
