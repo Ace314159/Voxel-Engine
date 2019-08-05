@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Shader.h"
 
-Shader::Shader(const std::string& shaderName) {
-	std::ifstream vShaderFile(shaderName + ".vert"), fShaderFile(shaderName + ".frag");
+Shader::Shader(const std::string& vert, const std::string& frag) {
+	std::ifstream vShaderFile(vert + ".vert"), fShaderFile(frag + ".frag");
 
 	std::stringstream vBuffer;
 	vBuffer << vShaderFile.rdbuf();
@@ -24,7 +24,7 @@ Shader::Shader(const std::string& shaderName) {
 	glGetShaderiv(vShader, GL_COMPILE_STATUS, &success);
 	if(!success) {
 		glGetShaderInfoLog(vShader, 512, nullptr, infoLog);
-		throw std::runtime_error("Vertex Shader " + shaderName + " failed to compile:\n" + infoLog);
+		throw std::runtime_error("Vertex Shader " + vert + " failed to compile:\n" + infoLog);
 	};
 
 	fShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -33,7 +33,7 @@ Shader::Shader(const std::string& shaderName) {
 	glGetShaderiv(fShader, GL_COMPILE_STATUS, &success);
 	if(!success) {
 		glGetShaderInfoLog(fShader, 512, nullptr, infoLog);
-		throw std::runtime_error("Fragment Shader " + shaderName + " failed to compile:\n" + infoLog);
+		throw std::runtime_error("Fragment Shader " + frag + " failed to compile:\n" + infoLog);
 	};
 
 	ID = glCreateProgram();
@@ -44,7 +44,7 @@ Shader::Shader(const std::string& shaderName) {
 	glGetProgramiv(ID, GL_LINK_STATUS, &success);
 	if(!success) {
 		glGetShaderInfoLog(ID, 512, nullptr, infoLog);
-		throw std::runtime_error("Shader " + shaderName + " failed to link:\n" + 
+		throw std::runtime_error("Shader " + vert + " failed to link:\n" + 
 			infoLog);
 	}
 

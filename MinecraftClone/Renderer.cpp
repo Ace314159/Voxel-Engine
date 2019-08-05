@@ -1,10 +1,7 @@
 #include "stdafx.h"
 #include "Renderer.h"
 
-Renderer::Renderer() : window(initWindow()), camera(window) {
-	camera.enable();
-	camera.setInitialY(world.chunks[{0, 0}]->getMaxHeight(0, 0) + 2);
-};
+Renderer::Renderer() : window(initWindow()), entityAtlas("entities.png"), player(&world, window, entityAtlas) {};
 
 GLFWwindow* Renderer::initWindow() {
 	glfwInit();
@@ -19,7 +16,7 @@ GLFWwindow* Renderer::initWindow() {
 	}
 	prevFrameTime = glfwGetTime();
 	glfwMakeContextCurrent(window);
-	glfwSetWindowUserPointer(window, &camera);
+	glfwSetWindowUserPointer(window, &player);
 
 	if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		throw std::runtime_error("Failed to initialize GLAD");
@@ -58,8 +55,9 @@ void Renderer::render() {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	camera.update();
+	player.update();
 	world.render();
+	//player.render();
 	hud.render();
 
 	glfwSwapBuffers(window);
@@ -82,7 +80,7 @@ void Renderer::updateWindowTitle() {
 }
 
 void Renderer::handleEvents() {
-	if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) camera.disable();
+	if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) player.disable();
 }
 
 

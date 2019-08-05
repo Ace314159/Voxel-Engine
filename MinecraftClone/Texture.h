@@ -11,6 +11,6 @@ public:
 	Texture(const std::string& fileName);
 
 	unsigned int unit;
-	virtual void use() { glActiveTexture(GL_TEXTURE0 + unit); }
+	virtual void use() const { glActiveTexture(GL_TEXTURE0 + unit); }
 };
 

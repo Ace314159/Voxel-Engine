@@ -6,7 +6,8 @@
 
 class Shader {
 public:
-	Shader(const std::string& shaderName);
+	Shader(const std::string& shaderName) : Shader(shaderName, shaderName) { };
+	Shader(const std::string& vert, const std::string& frag);
 	GLuint ID;
 
 	void use() const { glUseProgram(ID); };

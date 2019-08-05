@@ -1,6 +1,11 @@
 #include "stdafx.h"
+
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 #include "Camera.h"
 #include "Shader.h"
+#include "World.h"
 
 Camera::Camera(GLFWwindow* window) : window(window) {
 	glGenBuffers(1, &UBO);
@@ -9,34 +14,9 @@ Camera::Camera(GLFWwindow* window) : window(window) {
 	glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), nullptr, GL_DYNAMIC_DRAW);
 
 	glBindBufferRange(GL_UNIFORM_BUFFER, 0, UBO, 0, 2 * sizeof(glm::mat4));
-
-	glfwSetCursorPosCallback(window, [](GLFWwindow* window, double x, double y) {
-		((Camera*)glfwGetWindowUserPointer(window))->updateMousePos(x, y);
-	});
-	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods) {
-		if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
-			((Camera*)glfwGetWindowUserPointer(window))->enable();
-	});
-
-	prevTime = glfwGetTime();
 }
 
-void Camera::update() {
-	double curTime = glfwGetTime();
-	double deltaTime = curTime - prevTime;
-	prevTime = curTime;
-
-	 float speed = float(baseSpeed * deltaTime);
-
-	if(!enabled) return;
-	glm::vec3 front0Y = glm::normalize(glm::vec3(front.x, 0, front.z));
-	if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) pos += speed * front0Y;
-	if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) pos -= speed * front0Y;
-	if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) pos -= glm::normalize(glm::cross(front0Y, up)) * speed;
-	if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) pos += glm::normalize(glm::cross(front0Y, up)) * speed;
-	if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) pos += up * speed;
-	if(glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) pos -= up * speed;
-
+void Camera::update(const glm::vec3& pos) {
 	glm::mat4 view = glm::lookAt(pos, pos + front, up);
 
 	glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(projection));

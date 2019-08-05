@@ -22,5 +22,7 @@ public:
 	void buffer();
 	void clear();
 	void render() const;
+
+	friend class Entity;
 };
 

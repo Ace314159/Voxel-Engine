@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Camera.h"
 #include "HUD.h"
+#include "Player.h"
 #include "World.h"
 
 class Renderer {
 private:
 	GLFWwindow* window;
-	Camera camera;
+	TextureAtlas entityAtlas;
 
 	// Frame Counter
 	const std::string WINDOW_TITLE = "Minecraft Clone";
@@ -20,6 +20,7 @@ public:
 
 	HUD hud;
 	World world;
+	Player player;
 
 	bool isRunning() { return !glfwWindowShouldClose(window); };
 	void render();
