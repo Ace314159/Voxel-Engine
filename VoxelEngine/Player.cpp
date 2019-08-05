@@ -54,7 +54,5 @@ void Player::update() {
 		}
 	}
 
-	std::cout << pos.x << " " << pos.y << " " << pos.z << std::endl;
-
 	camera.update(pos + glm::vec3(0, 1.5, 0));
 }
