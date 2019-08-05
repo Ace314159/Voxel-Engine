@@ -222,6 +222,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="blocks.png" />
+    <Image Include="crosshair.png" />
+    <Image Include="entities.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="block.frag" />

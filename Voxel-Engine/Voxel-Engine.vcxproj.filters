@@ -133,6 +133,12 @@
     <Image Include="blocks.png">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="crosshair.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="entities.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="block.frag">
