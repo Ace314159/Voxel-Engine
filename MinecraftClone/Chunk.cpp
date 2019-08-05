@@ -12,9 +12,9 @@ void Chunk::makeMesh(World* world) {
 		if(block.type == BlockTypes::Air) continue;
 
 		for(int i = 0; i < 6; i++) {
-			glm::vec3 adjPos = block.pos + Mesh::adjacentFaces[i];
+			glm::vec3 adjPos = block.pos + CubeMesh::adjacentFaces[i];
 			if(world->getBlock((int)adjPos.x, (int)adjPos.y, (int)adjPos.z).isTransparent)
-				mesh.addFace(block.pos, (Mesh::Face)i, block.type.texIDs[i]);
+				mesh.addFace(block.pos, (CubeMesh::Face)i, block.type.texIDs[i]);
 		}
 	}
 

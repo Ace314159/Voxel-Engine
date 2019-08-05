@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Mesh.h"
+#include "CubeMesh.h"
 #include "Block.h"
 
 class World;
 
 class Chunk {
 private:
-	Mesh mesh;
+	CubeMesh mesh;
 	bool canRender = false;
 
 	std::vector<Block> blocks;
