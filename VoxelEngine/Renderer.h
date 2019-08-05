@@ -10,7 +10,7 @@ private:
 	TextureAtlas entityAtlas;
 
 	// Frame Counter
-	const std::string WINDOW_TITLE = "Minecraft Clone";
+	const std::string WINDOW_TITLE = "Voxel Engine";
 	double prevFrameTime;
 	unsigned int frameCount = 0;
 	void updateWindowTitle();
