@@ -1,5 +1,3 @@
-#include "Block.h"
-
 struct BlockType {
 	const std::string& name;
 	unsigned int ID;
