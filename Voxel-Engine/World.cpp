@@ -43,7 +43,7 @@ void World::generateChunk() {
 	if(chunks.find(key) == chunks.end())
 		chunks.try_emplace(key, std::move(terrainGenerator->generateChunk(this, key)));
 
-	chunks[key]->makeMesh(this);
+	chunks[key]->makeMesh();
 
 	if(++generatingChunkX > RENDER_DISTANCE) {
 		generatingChunkX = -RENDER_DISTANCE;
@@ -66,11 +66,29 @@ const BlockType& World::getBlock(int x, int y, int z) const {
 	int chunkX = getChunkCoord(x, CHUNK_X_LEN);
 	int chunkZ = getChunkCoord(z, CHUNK_Z_LEN);
 
-	if(chunks.find({chunkX, chunkZ}) == chunks.end()) throw std::runtime_error("Block doesn't exist!");
-	if(y >= CHUNK_Y_LEN || y < 0) return BlockTypes::Air;
+	if(chunks.find({chunkX, chunkZ}) == chunks.end() || y >= CHUNK_Y_LEN || y < 0) return BlockTypes::Air;
 
 	int blockX = getBlockCoord(x, chunkX, CHUNK_X_LEN);
 	int blockZ = getBlockCoord(z, chunkZ, CHUNK_Z_LEN);
 
 	return chunks.at({chunkX, chunkZ})->getBlock(blockX, y, blockZ);
+}
+
+void World::setBlock(int x, int y, int z, const BlockType& block) {
+	int chunkX = getChunkCoord(x, CHUNK_X_LEN);
+	int chunkZ = getChunkCoord(z, CHUNK_Z_LEN);
+
+	if(chunks.find({chunkX, chunkZ}) == chunks.end() || y >= CHUNK_Y_LEN || y < 0) return;
+
+
+	int blockX = getBlockCoord(x, chunkX, CHUNK_X_LEN);
+	int blockZ = getBlockCoord(z, chunkZ, CHUNK_Z_LEN);
+
+	chunks.at({chunkX, chunkZ})->setBlock(blockX, y, blockZ, block);
+	if(block.isTransparent) {
+		if(blockX == 0) chunks.at({chunkX - 1, chunkZ})->makeMesh();
+		if(blockX == 15) chunks.at({chunkX + 1, chunkZ})->makeMesh();
+		if(blockZ == 0) chunks.at({chunkX, chunkZ - 1})->makeMesh();
+		if(blockZ == 15) chunks.at({chunkX, chunkZ + 1})->makeMesh();
+	}
 }

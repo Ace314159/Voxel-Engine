@@ -38,5 +38,6 @@ public:
 	void generateChunk();
 	void render();
 	const BlockType& getBlock(int x, int y, int z) const;
+	void setBlock(int x, int y, int z, const BlockType& block);
 };
 

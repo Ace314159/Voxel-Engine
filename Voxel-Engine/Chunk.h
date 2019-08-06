@@ -9,6 +9,7 @@ class Chunk {
 private:
 	CubeMesh mesh;
 	bool canRender = false;
+	World* world;
 
 	std::vector<Block> blocks;
 public:
@@ -24,9 +25,10 @@ public:
 		bool operator==(const Key& k) const { return k.x == x && k.z == z; };
 	};
 
-	void makeMesh(World* world);
+	void makeMesh();
 	void render() const;
 	const BlockType& getBlock(unsigned int x, unsigned int y, unsigned int z) const;
+	void setBlock(unsigned int x, unsigned int y, unsigned int z, const BlockType& block);
 	unsigned int getMaxHeight(unsigned int x, unsigned int z);
 };
 

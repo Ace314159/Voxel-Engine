@@ -9,12 +9,20 @@ Player::Player(World* world, GLFWwindow* window, const TextureAtlas& entityAtlas
 	pos = {0.5, world->chunks[{0, 0}]->getMaxHeight(0, 0) + 10, 0.5};
 
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods) {
-		if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
-			((Player*)glfwGetWindowUserPointer(window))->enable();
+		if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+			Player* player = (Player*)glfwGetWindowUserPointer(window);
+			if(player->isEnabled()) player->clicked();
+			else player->enable();
+		}
 	});
 	glfwSetCursorPosCallback(window, [](GLFWwindow* window, double x, double y) {
 		((Player*)glfwGetWindowUserPointer(window))->updateMousePos(x, y);
 	});
+
+
+	glm::vec4 rayClip = {0, 0, -1, 1}; // Mouse is always centered at (0, 0) NDC
+	rayEye = glm::inverse(camera.projection) * rayClip;
+	rayEye = {rayEye.x, rayEye.y, -1, 0};
 
 	prevTime = glfwGetTime();
 }
@@ -51,5 +59,19 @@ void Player::update() {
 		}
 	}
 
-	camera.update(pos + glm::vec3(0, 1.5, 0));
+	cameraPos = pos + glm::vec3(0, 1.5, 0);
+	camera.update(cameraPos);
+}
+
+void Player::clicked() {
+	glm::vec3 rayWorld = glm::inverse(camera.view) * rayEye;
+	rayWorld = glm::normalize(rayWorld);
+
+	for(float i = 1; i < reach; i += 0.01f) {
+		glm::ivec3 check = cameraPos + rayWorld * i;
+		if(world->getBlock(check.x, check.y, check.z) != BlockTypes::Air) {
+			world->setBlock(check.x, check.y, check.z, BlockTypes::Air);
+			break;
+		}
+	}
 }

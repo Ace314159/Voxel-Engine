@@ -10,9 +10,10 @@ private:
 	GLFWwindow* window;
 
 	GLuint UBO;
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCREEN_WIDTH / SCREEN_HEIGHT,
+	const glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCREEN_WIDTH / SCREEN_HEIGHT,
 		0.0001f, 1000.0f);
 	// Makes View Matrix
+	glm::mat4 view;
 	glm::vec3 front;
 	const glm::vec3 up{0, 1, 0};
 
