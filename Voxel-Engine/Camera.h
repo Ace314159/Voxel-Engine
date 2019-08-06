@@ -11,7 +11,7 @@ private:
 
 	GLuint UBO;
 	const glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCREEN_WIDTH / SCREEN_HEIGHT,
-		0.0001f, 1000.0f);
+		0.1f, 2000.0f);
 	// Makes View Matrix
 	glm::mat4 view;
 	glm::vec3 front;
