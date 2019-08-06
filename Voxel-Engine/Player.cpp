@@ -6,7 +6,7 @@
 Player::Player(World* world, GLFWwindow* window, const TextureAtlas& entityAtlas) : 
 	Entity({1, 2, 1}, 0, entityAtlas), camera(window), world(world), window(window) {
 	camera.enable();
-	pos = {0.5, world->chunks[{0, 0}]->getMaxHeight(0, 0) + 10, 0.5};
+	pos = {0.5, world->chunks[{0, 0}]->getMaxHeight(0, 0) + 1, 0.5};
 
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods) {
 		if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
