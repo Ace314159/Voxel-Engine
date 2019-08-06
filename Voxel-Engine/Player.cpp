@@ -3,8 +3,7 @@
 #include "Player.h"
 
 
-Player::Player(World* world, GLFWwindow* window, const TextureAtlas& entityAtlas) : 
-	Entity({1, 2, 1}, 0, entityAtlas), camera(window), world(world), window(window) {
+Player::Player(World* world, GLFWwindow* window) : camera(window), world(world), window(window) {
 	camera.enable();
 	pos = {0.5, world->chunks[{0, 0}]->getMaxHeight(0, 0) + 1, 0.5};
 

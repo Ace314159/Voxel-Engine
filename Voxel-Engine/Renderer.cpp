@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Renderer.h"
 
-Renderer::Renderer() : window(initWindow()), entityAtlas("entities.png"), player(&world, window, entityAtlas) {};
+Renderer::Renderer() : window(initWindow()), player(&world, window) {};
 
 GLFWwindow* Renderer::initWindow() {
 	glfwInit();
@@ -57,7 +57,6 @@ void Renderer::render() {
 
 	player.update();
 	world.render();
-	//player.render();
 	hud.render();
 
 	glfwSwapBuffers(window);

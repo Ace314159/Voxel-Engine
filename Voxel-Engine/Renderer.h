@@ -7,7 +7,6 @@
 class Renderer {
 private:
 	GLFWwindow* window;
-	TextureAtlas entityAtlas;
 
 	// Frame Counter
 	const std::string WINDOW_TITLE = "Voxel Engine";

@@ -66,9 +66,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CubeMesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -122,9 +119,6 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CubeMesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -151,9 +145,6 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="hud.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="entity.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

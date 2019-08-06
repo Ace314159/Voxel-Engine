@@ -4,11 +4,10 @@
 #include <GLFW/glfw3.h>
 
 #include "Camera.h"
-#include "Entity.h"
 #include "World.h"
 
 
-class Player : public Entity {
+class Player {
 private:
 	World* world;
 	GLFWwindow* window;
@@ -17,12 +16,13 @@ private:
 	bool enabled = true;
 	double prevTime;
 
+	glm::vec3 pos;
 	const double baseSpeed = 10;
 	const float reach = 5;
 	glm::vec4 rayEye;
 	glm::vec3 cameraPos;
 public:
-	Player(World* world, GLFWwindow* window, const TextureAtlas& entityAtlas);
+	Player(World* world, GLFWwindow* window);
 
 	void update();
 	bool isEnabled() const { return enabled; };
