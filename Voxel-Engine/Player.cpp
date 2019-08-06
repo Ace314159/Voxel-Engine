@@ -43,10 +43,7 @@ void Player::update() {
 	for(int i = 0; i < 3; i++) {
 		glm::vec3 newPos = pos;
 		newPos[i] += dPos[i];
-		if(newPos.x < 0) newPos.x--;
-		if(newPos.y < 0) newPos.y--;
-		if(newPos.z < 0) newPos.z--;
-		glm::ivec3 checkPos(newPos.x, newPos.y, newPos.z);
+		glm::ivec3 checkPos(floor(newPos.x), floor(newPos.y), floor(newPos.z));
 		
 		if(world->getBlock(checkPos.x, checkPos.y, checkPos.z) == BlockTypes::Air &&
 			world->getBlock(checkPos.x, checkPos.y + 1, checkPos.z) == BlockTypes::Air) {
