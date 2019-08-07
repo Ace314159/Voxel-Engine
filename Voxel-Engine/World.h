@@ -20,15 +20,15 @@ public:
 	World();
 	std::unordered_map<Chunk::Key, std::unique_ptr<Chunk>> chunks;
 
-	int getChunkCoord(int worldCoord, int chunkCoordLen) const {
-		if(worldCoord < 0) return (worldCoord + 1) / chunkCoordLen - 1;
-		else return worldCoord / chunkCoordLen;
+	int getChunkCoord(int worldCoord) const {
+		if(worldCoord < 0) return (worldCoord + 1) / CHUNK_LEN - 1;
+		else return worldCoord / CHUNK_LEN;
 	};
-	int getWorldCoord(int chunkCoord, int blockCoord, int chunkCoordLen) const {
-		return chunkCoord * chunkCoordLen + blockCoord;
+	int getWorldCoord(int chunkCoord, int blockCoord) const {
+		return chunkCoord * CHUNK_LEN + blockCoord;
 	}
-	int getBlockCoord(int worldCoord, int chunkCoord, int chunkCoordLen) const {
-		return worldCoord - chunkCoord * chunkCoordLen;
+	int getBlockCoord(int worldCoord, int chunkCoord) const {
+		return worldCoord - chunkCoord * CHUNK_LEN;
 	}
 
 	bool generatingChunks = true;

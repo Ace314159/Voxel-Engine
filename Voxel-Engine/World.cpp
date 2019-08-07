@@ -63,26 +63,26 @@ void World::render() {
 }
 
 const BlockType& World::getBlock(int x, int y, int z) const {
-	int chunkX = getChunkCoord(x, CHUNK_X_LEN);
-	int chunkZ = getChunkCoord(z, CHUNK_Z_LEN);
+	int chunkX = getChunkCoord(x);
+	int chunkZ = getChunkCoord(z);
 
-	if(chunks.find({chunkX, chunkZ}) == chunks.end() || y >= CHUNK_Y_LEN || y < 0) return BlockTypes::Air;
+	if(chunks.find({chunkX, chunkZ}) == chunks.end() || y >= CHUNK_HEIGHT || y < 0) return BlockTypes::Air;
 
-	int blockX = getBlockCoord(x, chunkX, CHUNK_X_LEN);
-	int blockZ = getBlockCoord(z, chunkZ, CHUNK_Z_LEN);
+	int blockX = getBlockCoord(x, chunkX);
+	int blockZ = getBlockCoord(z, chunkZ);
 
 	return chunks.at({chunkX, chunkZ})->getBlock(blockX, y, blockZ);
 }
 
 void World::setBlock(int x, int y, int z, const BlockType& block) {
-	int chunkX = getChunkCoord(x, CHUNK_X_LEN);
-	int chunkZ = getChunkCoord(z, CHUNK_Z_LEN);
+	int chunkX = getChunkCoord(x);
+	int chunkZ = getChunkCoord(z);
 
-	if(chunks.find({chunkX, chunkZ}) == chunks.end() || y >= CHUNK_Y_LEN || y < 0) return;
+	if(chunks.find({chunkX, chunkZ}) == chunks.end() || y >= CHUNK_HEIGHT || y < 0) return;
 
 
-	int blockX = getBlockCoord(x, chunkX, CHUNK_X_LEN);
-	int blockZ = getBlockCoord(z, chunkZ, CHUNK_Z_LEN);
+	int blockX = getBlockCoord(x, chunkX);
+	int blockZ = getBlockCoord(z, chunkZ);
 
 	chunks.at({chunkX, chunkZ})->setBlock(blockX, y, blockZ, block);
 	if(block.isTransparent) {

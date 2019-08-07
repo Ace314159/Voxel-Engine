@@ -16,7 +16,7 @@ public:
 	Chunk(World* world, const std::vector<Block>& blocks);
 
 	static size_t getArrIndex(unsigned int x, unsigned int y, unsigned int z) { 
-		return CHUNK_X_LEN * CHUNK_Y_LEN * z + CHUNK_Y_LEN * x + y;
+		return CHUNK_LEN * CHUNK_HEIGHT * z + CHUNK_HEIGHT * x + y;
 	}
 
 	struct Key {
