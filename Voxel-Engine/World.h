@@ -23,6 +23,7 @@ private:
 	const int RENDER_DISTANCE = 5;
 
 	void getNextChunkToGen();
+	void deleteOldChunks();
 public:
 	World();
 	std::unordered_map<Chunk::Key, std::unique_ptr<Chunk>> chunks;

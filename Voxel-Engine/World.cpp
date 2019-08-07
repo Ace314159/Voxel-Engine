@@ -23,7 +23,6 @@ World::World() : shader("block"), blockAtlas("blocks.png") {
 }
 
 void World::getNextChunkToGen() {
-	assert(generatingChunks);
 	while(chunks.find(generatingChunk) != chunks.end() && chunks[generatingChunk]->canRender()) {
 		int xDiff = generatingChunk.x - prevPlayerChunk.x;
 		int zDiff = generatingChunk.z - prevPlayerChunk.z;
@@ -44,11 +43,21 @@ void World::getNextChunkToGen() {
 	}
 }
 
+void World::deleteOldChunks() {
+	for(auto it = chunks.begin(); it != chunks.end();) {
+		if(abs(it->first.x - generatingChunk.x) > RENDER_DISTANCE || 
+		   abs(it->first.z - generatingChunk.z) > RENDER_DISTANCE)
+			it = chunks.erase(it);
+		else it++;
+	}
+}
+
 void World::generateChunk(const glm::vec3& playerPos) {
 	Chunk::Key playerChunk = {getChunkCoord((int)floor(playerPos.x)), getChunkCoord((int)floor(playerPos.z))};
 
 	if(playerChunk != prevPlayerChunk) {
 		generatingChunk = playerChunk;
+		deleteOldChunks();
 		prevPlayerChunk = playerChunk;
 		generatingChunkIndex = 0;
 		generatingChunks = true;
