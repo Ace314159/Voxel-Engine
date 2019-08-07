@@ -34,4 +34,32 @@ namespace BlockTypes {
 		{2, 2, 2, 2, 1, 0},
 		false,
 	};
+
+	const BlockType Stone = {
+		"Stone",
+		3,
+		{3, 3, 3, 3, 3, 3},
+		false,
+	};
+
+	const BlockType Sand = {
+		"Sand",
+		4,
+		{4, 4, 4, 4, 4, 4},
+		false,
+	};
+
+	const BlockType Water = {
+		"Water",
+		5,
+		{5, 5, 5, 5, 5, 5},
+		true,
+	};
+
+	const BlockType Snow = {
+		"Snow",
+		6,
+		{6, 6, 6, 6, 6, 6},
+		false,
+	};
 }

@@ -20,10 +20,21 @@ std::unique_ptr<Chunk> DefaultTerrainGenerator::generateChunk(World* world, Chun
 
 			double e = perlin.octaveNoise0_1(perlinX / freq, perlinZ / freq, numOctaves);
 			int elevation = abs((int)round(pow(e, exponent) * CHUNK_HEIGHT));
-			for(int y = 0; y < elevation; y++) {
-				blocks.emplace_back(BlockTypes::Dirt, glm::vec3(worldX, y, worldZ));
+
+			if(elevation > STONE_Y) {
+				for(int y = 0; y <= STONE_Y; y++) {
+					blocks.emplace_back(BlockTypes::Stone, glm::vec3(worldX, y, worldZ));
+				}
+				for(int y = STONE_Y + 1; y < elevation; y++) {
+					blocks.emplace_back(BlockTypes::Dirt, glm::vec3(worldX, y, worldZ));
+				}
+				blocks.emplace_back(BlockTypes::Grass, glm::vec3(worldX, elevation, worldZ));
+			} else {
+				for(int y = 0; y <= elevation; y++) {
+					blocks.emplace_back(BlockTypes::Stone, glm::vec3(worldX, y, worldZ));
+				}
 			}
-			blocks.emplace_back(BlockTypes::Grass, glm::vec3(worldX, elevation, worldZ));
+	
 			for(int y = elevation + 1; y < CHUNK_HEIGHT; y++) {
 				blocks.emplace_back(BlockTypes::Air, glm::vec3(worldX, y, worldZ));
 			}

@@ -8,6 +8,7 @@ class DefaultTerrainGenerator : public TerrainGenerator {
 private:
 	siv::PerlinNoise perlin;
 
+	const int STONE_Y = 20;
 	double freq = 5;
 	int32_t numOctaves = 5;
 	double exponent = 0.75;
