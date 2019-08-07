@@ -15,7 +15,14 @@ private:
 	Shader shader;
 	TextureAtlas blockAtlas;
 
+	bool generatingChunks = true;
+	Chunk::Key prevPlayerChunk = {0, 0};
+	Chunk::Key generatingChunk = {0, 0};
+	Chunk::Key generatingChunkIncrements[4] = {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
+	int generatingChunkIndex = 0;
 	const int RENDER_DISTANCE = 5;
+
+	void getNextChunkToGen();
 public:
 	World();
 	std::unordered_map<Chunk::Key, std::unique_ptr<Chunk>> chunks;
@@ -31,12 +38,8 @@ public:
 		return worldCoord - chunkCoord * CHUNK_LEN;
 	}
 
-	bool generatingChunks = true;
-	int generatingChunkX = -RENDER_DISTANCE;
-	int generatingChunkZ = -RENDER_DISTANCE;
-
-	void generateChunk();
-	void render();
+	void generateChunk(const glm::vec3& playerPos);
+	void render() const;
 	const BlockType& getBlock(int x, int y, int z) const;
 	void setBlock(int x, int y, int z, const BlockType& block);
 };

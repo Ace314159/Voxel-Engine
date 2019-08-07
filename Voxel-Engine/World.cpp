@@ -22,10 +22,41 @@ World::World() : shader("block"), blockAtlas("blocks.png") {
 	chunks.try_emplace({0, 0}, std::move(terrainGenerator->generateChunk(this, {0, 0})));
 }
 
-void World::generateChunk() {
-	int x = generatingChunkX;
-	int z = generatingChunkZ;
+void World::getNextChunkToGen() {
+	assert(generatingChunks);
+	while(chunks.find(generatingChunk) != chunks.end() && chunks[generatingChunk]->canRender()) {
+		int xDiff = generatingChunk.x - prevPlayerChunk.x;
+		int zDiff = generatingChunk.z - prevPlayerChunk.z;
 
+		if(xDiff == zDiff) {
+			if(xDiff >= 0) {
+				if(xDiff == RENDER_DISTANCE) {
+					generatingChunks = false;
+					break;
+				} else generatingChunk.x++;
+			} else generatingChunk.z++;
+			if(xDiff != 0) generatingChunkIndex = (generatingChunkIndex + 1) % 4;
+		} else if(xDiff == -zDiff) {
+			if(xDiff < 0) generatingChunk.x++;
+			else generatingChunk.x--;
+			generatingChunkIndex = (generatingChunkIndex + 1) % 4;
+		} else generatingChunk += generatingChunkIncrements[generatingChunkIndex];
+	}
+}
+
+void World::generateChunk(const glm::vec3& playerPos) {
+	Chunk::Key playerChunk = {getChunkCoord((int)floor(playerPos.x)), getChunkCoord((int)floor(playerPos.z))};
+
+	if(playerChunk != prevPlayerChunk) {
+		generatingChunk = playerChunk;
+		prevPlayerChunk = playerChunk;
+		generatingChunkIndex = 0;
+		generatingChunks = true;
+	} else if(!generatingChunks) return;
+
+	getNextChunkToGen();
+
+	int x = generatingChunk.x, z = generatingChunk.z;
 	Chunk::Key key;
 	key = {x - 1, z + 0};
 	if(chunks.find(key) == chunks.end())
@@ -44,14 +75,9 @@ void World::generateChunk() {
 		chunks.try_emplace(key, std::move(terrainGenerator->generateChunk(this, key)));
 
 	chunks[key]->makeMesh();
-
-	if(++generatingChunkX > RENDER_DISTANCE) {
-		generatingChunkX = -RENDER_DISTANCE;
-		if(++generatingChunkZ > RENDER_DISTANCE) generatingChunks = false;
-	}
 }
 
-void World::render() {
+void World::render() const{
 	glBindVertexArray(VAO);
 	shader.use();
 	blockAtlas.use();

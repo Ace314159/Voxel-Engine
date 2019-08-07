@@ -27,6 +27,7 @@ public:
 
 	void update();
 	bool isEnabled() const { return enabled; };
+	const glm::vec3& getPos() const { return pos; };
 	void enable() { enabled = true; camera.enable(); }
 	void disable() { enabled = false; camera.disable(); };
 	void updateMousePos(double x, double y) { camera.updateMousePos(x, y); };

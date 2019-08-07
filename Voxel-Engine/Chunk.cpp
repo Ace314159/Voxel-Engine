@@ -19,11 +19,11 @@ void Chunk::makeMesh() {
 	}
 
 	mesh.buffer();
-	canRender = true;
+	_canRender = true;
 }
 
 void Chunk::render() const {
-	if(canRender) mesh.render();
+	if(_canRender) mesh.render();
 }
 
 const BlockType& Chunk::getBlock(unsigned int x, unsigned int y, unsigned int z) const {
