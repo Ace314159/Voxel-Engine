@@ -9,6 +9,7 @@ public:
 	struct Vertex {
 		glm::vec3 pos;
 		glm::vec3 texCoord;
+		glm::vec3 normal;
 	};
 private:
 	GLuint VBO, EBO;

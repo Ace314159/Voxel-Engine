@@ -9,12 +9,15 @@ World::World() : shader("block"), blockAtlas("blocks.png") {
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
 
 	glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, offsetof(Mesh::Vertex, Mesh::Vertex::pos));
 	glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, offsetof(Mesh::Vertex, Mesh::Vertex::texCoord));
+	glVertexAttribFormat(2, 3, GL_FLOAT, GL_FALSE, offsetof(Mesh::Vertex, Mesh::Vertex::normal));
 
 	glVertexAttribBinding(0, 0);
 	glVertexAttribBinding(1, 0);
+	glVertexAttribBinding(2, 0);
 
 	// UBO Setup for Shader
 	glUniformBlockBinding(shader.ID, glGetUniformBlockIndex(shader.ID, "Camera"), 0);
