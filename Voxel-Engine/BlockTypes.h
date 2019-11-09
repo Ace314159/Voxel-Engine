@@ -1,3 +1,5 @@
+#pragma once
+
 struct BlockType {
 	const std::string& name;
 	unsigned int ID;

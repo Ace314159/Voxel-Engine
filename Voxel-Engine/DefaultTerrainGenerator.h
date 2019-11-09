@@ -1,17 +1,12 @@
 #pragma once
 
+#include "Noise.h"
 #include "TerrainGenerator.h"
-
-#include "PerlinNoise.hpp"
 
 class DefaultTerrainGenerator : public TerrainGenerator {
 private:
-	siv::PerlinNoise perlin;
-
-	const int STONE_Y = 20;
-	double freq = 5;
-	int32_t numOctaves = 5;
-	double exponent = 0.75;
+	Noise eNoise = Noise(5, 5, 0.75);
+	Noise mNoise = Noise(10, 1, 1);
 public:
 	DefaultTerrainGenerator(uint32_t seed);
 

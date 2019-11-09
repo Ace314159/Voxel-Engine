@@ -2,8 +2,9 @@
 
 #include "DefaultTerrainGenerator.h"
 #include "World.h"
+#include "Biomes.h"
 
-DefaultTerrainGenerator::DefaultTerrainGenerator(uint32_t seed) : perlin(seed) {}
+DefaultTerrainGenerator::DefaultTerrainGenerator(uint32_t seed) { eNoise.setSeed(seed); mNoise.setSeed(seed ^ 2432447131); }
 
 std::unique_ptr<Chunk> DefaultTerrainGenerator::generateChunk(World* world, Chunk::Key key) {
 	std::vector<Block> blocks;
@@ -15,30 +16,14 @@ std::unique_ptr<Chunk> DefaultTerrainGenerator::generateChunk(World* world, Chun
 			int worldX = world->getWorldCoord(key.x, x);
 
 			double perlinX = key.x + (double)x / CHUNK_LEN;
-
 			double perlinZ = key.z + (double)z / CHUNK_LEN;
 
-			double e = perlin.octaveNoise0_1(perlinX / freq, perlinZ / freq, numOctaves);
-			int elevation = abs((int)round(pow(e, exponent) * CHUNK_HEIGHT));
+			double e = eNoise.get(perlinX, perlinZ);
+			double m = mNoise.get(perlinX, perlinZ);
 
-			if(elevation > STONE_Y) {
-				for(int y = 0; y <= STONE_Y; y++) {
-					blocks.emplace_back(BlockTypes::Stone, glm::vec3(worldX, y, worldZ));
-				}
-				for(int y = STONE_Y + 1; y < elevation; y++) {
-					blocks.emplace_back(BlockTypes::Dirt, glm::vec3(worldX, y, worldZ));
-				}
-				blocks.emplace_back(BlockTypes::Grass, glm::vec3(worldX, elevation, worldZ));
-			} else {
-				for(int y = 0; y <= elevation; y++) {
-					blocks.emplace_back(BlockTypes::Stone, glm::vec3(worldX, y, worldZ));
-				}
-			}
-	
-			for(int y = elevation + 1; y < CHUNK_HEIGHT; y++) {
-				blocks.emplace_back(BlockTypes::Air, glm::vec3(worldX, y, worldZ));
-			}
+			Biomes::getBiome(e, m)->generateColumn(blocks, e, worldX, worldZ);
 		}
 	}
+	assert(blocks.size() == CHUNK_VOLUME);
 	return std::make_unique<Chunk>(world, blocks);
 };

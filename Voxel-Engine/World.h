@@ -20,7 +20,7 @@ private:
 	Chunk::Key generatingChunk = {0, 0};
 	Chunk::Key generatingChunkIncrements[4] = {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
 	int generatingChunkIndex = 0;
-	const int RENDER_DISTANCE = 5;
+	const int RENDER_DISTANCE = 10;
 
 	void getNextChunkToGen();
 	void deleteOldChunks();

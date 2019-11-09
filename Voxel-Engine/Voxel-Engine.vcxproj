@@ -186,6 +186,7 @@
     <ClCompile Include="FlatTerrainGenerator.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Noise.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -200,6 +201,7 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Biomes.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockTypes.h" />
     <ClInclude Include="Camera.h" />
@@ -209,6 +211,7 @@
     <ClInclude Include="FlatTerrainGenerator.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Noise.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="stdafx.h" />

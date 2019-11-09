@@ -14,5 +14,5 @@ constexpr size_t TEX_SIZE = 8;
 constexpr size_t NUM_BLOCKS = 3;
 
 constexpr int CHUNK_LEN = 16;
-constexpr int CHUNK_HEIGHT = 64;
+constexpr int CHUNK_HEIGHT = 128;
 constexpr int CHUNK_VOLUME = CHUNK_LEN * CHUNK_LEN * CHUNK_HEIGHT;
