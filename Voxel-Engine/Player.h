@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "Camera.h"
+#include "OutlinedCubeMesh.h"
 #include "World.h"
 
 
@@ -22,10 +23,15 @@ private:
 	const float buffer = 0.2f;
 	glm::vec4 rayEye;
 	glm::vec3 cameraPos;
+
+	OutlinedCubeMesh selectedBlockMesh;
+	glm::ivec3 selectedBlockCoords;
+	void setSelectedBlock();
 public:
 	Player(World* world, GLFWwindow* window);
 
 	void update();
+	void render();
 	bool isEnabled() const { return enabled; };
 	const glm::vec3& getPos() const { return pos; };
 	void enable() { enabled = true; camera.enable(); }

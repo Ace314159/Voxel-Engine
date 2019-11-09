@@ -187,6 +187,7 @@
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Noise.cpp" />
+    <ClCompile Include="OutlinedCubeMesh.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -212,6 +213,7 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Noise.h" />
+    <ClInclude Include="OutlinedCubeMesh.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="stdafx.h" />
@@ -230,6 +232,7 @@
     <None Include="block.vert" />
     <None Include="hud.frag" />
     <None Include="hud.vert" />
+    <None Include="outlinedBlock.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

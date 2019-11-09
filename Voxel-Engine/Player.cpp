@@ -2,6 +2,8 @@
 
 #include "Player.h"
 
+#include <glm/gtx/string_cast.hpp>
+
 
 Player::Player(World* world, GLFWwindow* window) : camera(window), world(world), window(window) {
 	camera.enable();
@@ -60,17 +62,37 @@ void Player::update() {
 
 	cameraPos = pos + glm::vec3(0, 1.5, 0);
 	camera.update(cameraPos);
+
+	setSelectedBlock();
 }
 
-void Player::clicked() {
+void Player::render() {
+	if(selectedBlockCoords.y > 0)
+		selectedBlockMesh.render();
+}
+
+void Player::setSelectedBlock() {
 	glm::vec3 rayWorld = glm::inverse(camera.view) * rayEye;
 	rayWorld = glm::normalize(rayWorld);
 
-	for(float i = 1; i < reach; i += 0.01f) {
-		glm::ivec3 check = cameraPos + rayWorld * i;
+	selectedBlockCoords.y = -1;
+	selectedBlockMesh.clear();
+	for(float i = 1; i <= reach; i += 0.01f) {
+		glm::ivec3 check = glm::floor(cameraPos + rayWorld * i);
 		if(world->getBlock(check.x, check.y, check.z) != BlockTypes::Air) {
-			world->setBlock(check.x, check.y, check.z, BlockTypes::Air);
+			selectedBlockCoords = check;
+
+			for(int i = 0; i < 6; i++) {
+				glm::ivec3 adjPos = selectedBlockCoords + (glm::ivec3)CubeMesh::adjacentFaces[i];
+				if(world->getBlock(adjPos.x, adjPos.y, adjPos.z).isTransparent)
+					selectedBlockMesh.addFace(selectedBlockCoords, (CubeMesh::Face)i, 0);
+			}
+			selectedBlockMesh.buffer();
 			break;
 		}
 	}
+}
+
+void Player::clicked() {
+	world->setBlock(selectedBlockCoords.x, selectedBlockCoords.y, selectedBlockCoords.z, BlockTypes::Air);
 }

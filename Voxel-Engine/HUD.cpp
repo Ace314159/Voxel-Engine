@@ -62,9 +62,7 @@ HUD::HUD() : VAO(createVAO()), shader("hud"),
 void HUD::render() {
 	glBindVertexArray(VAO);
 
-	glDepthMask(GL_FALSE);
 	glDisable(GL_DEPTH_TEST);
 	crosshair.render();
 	glEnable(GL_DEPTH_TEST);
-	glDepthMask(GL_TRUE);
 }

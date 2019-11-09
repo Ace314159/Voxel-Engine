@@ -72,6 +72,9 @@
     <ClCompile Include="Noise.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OutlinedCubeMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -131,6 +134,9 @@
     <ClInclude Include="Biomes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="OutlinedCubeMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="blocks.png">
@@ -151,6 +157,9 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="hud.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="outlinedBlock.frag">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
