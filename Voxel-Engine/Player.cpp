@@ -30,7 +30,8 @@ Player::Player(World* world, GLFWwindow* window) : camera(window), world(world),
 
 void Player::update() {
 	if(!enabled) return;
-
+	
+	// Move player from inputs
 	double curTime = glfwGetTime();
 	double deltaTime = curTime - prevTime;
 	prevTime = curTime;
@@ -45,21 +46,45 @@ void Player::update() {
 		dPos -= glm::normalize(glm::cross(front0Y, camera.up)) * speed;
 	if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) 
 		dPos += glm::normalize(glm::cross(front0Y, camera.up)) * speed;
-	if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-		dPos += camera.up * speed;
-	if(glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) dPos -= camera.up * speed;
 
+
+	// Apply Gravity
+	bool jumpPressed = glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS;
+	if(jumpPressed) {
+		if(!prevJumped) {
+			if(curTime - prevJumpTime < 0.3) flying = !flying;
+			prevJumpTime = curTime;
+			prevJumped = true;
+		}
+	} else prevJumped = false;
+	//std::cout << flying << std::endl;
+	if(flying) {
+		yVel = 0;
+		dPos.y = 0;
+		if(jumpPressed) dPos += camera.up * speed;
+		if(glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) dPos -= camera.up * speed;
+	} else {
+		if(yVel == 0 && jumpPressed) yVel = jumpVel;
+		yVel += gravity * deltaTime;
+		dPos.y = float(yVel * deltaTime);
+	}
+
+	// Collision Detection
 	for(int i = 0; i < 3; i++) {
 		glm::vec3 newPos = pos;
 		newPos[i] += dPos[i] + copysign(buffer, dPos[i]);
 		glm::ivec3 checkPos(floor(newPos.x), floor(newPos.y), floor(newPos.z));
-		
+
 		if(world->getBlock(checkPos.x, checkPos.y, checkPos.z) == BlockTypes::Air &&
 			world->getBlock(checkPos.x, checkPos.y + 1, checkPos.z) == BlockTypes::Air) {
 			pos[i] += dPos[i];
+		} else if(i == 1) {
+			yVel = 0;
+			flying = false;
 		}
 	}
 
+	// Add 1.5 to account for head height
 	cameraPos = pos + glm::vec3(0, 1.5, 0);
 	camera.update(cameraPos);
 

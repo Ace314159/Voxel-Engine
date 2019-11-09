@@ -18,7 +18,7 @@ private:
 	double prevTime;
 
 	glm::vec3 pos;
-	const double baseSpeed = 10;
+	const double baseSpeed = 5;
 	const float reach = 5;
 	const float buffer = 0.2f;
 	glm::vec4 rayEye;
@@ -27,6 +27,15 @@ private:
 	OutlinedCubeMesh selectedBlockMesh;
 	glm::ivec3 selectedBlockCoords;
 	void setSelectedBlock();
+
+	const double gravity = -30;
+	const double jumpVel = 10;
+	const double maxYVel = 10;
+	double yVel = 0;
+	double prevJumpTime = -10;
+	bool prevJumped = false;
+	double maxFlyDelay = 0.3;
+	bool flying = false;
 public:
 	Player(World* world, GLFWwindow* window);
 
