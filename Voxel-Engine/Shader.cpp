@@ -43,9 +43,8 @@ Shader::Shader(const std::string& vert, const std::string& frag) {
 
 	glGetProgramiv(ID, GL_LINK_STATUS, &success);
 	if(!success) {
-		glGetShaderInfoLog(ID, 512, nullptr, infoLog);
-		throw std::runtime_error("Shader " + vert + " failed to link:\n" + 
-			infoLog);
+		glGetProgramInfoLog(ID, 512, nullptr, infoLog);
+		throw std::runtime_error("Shader " + vert + " failed to link:\n" + infoLog);
 	}
 
 	glDeleteShader(vShader);
