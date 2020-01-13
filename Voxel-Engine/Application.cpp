@@ -3,10 +3,17 @@
 #include "Renderer.h"
 
 int main() {
-	Renderer renderer;
+	try {
+		Renderer renderer;
 
-	while(renderer.isRunning()) {
-		renderer.render();
+		while(renderer.isRunning()) {
+			renderer.render();
+		}
+	}
+	catch(const std::exception& e) {
+		std::cout << e.what() << std::endl;
+		throw e;
+		return -1;
 	}
 
 	return 0;

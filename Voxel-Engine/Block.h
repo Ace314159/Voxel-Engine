@@ -7,7 +7,7 @@
 class Block {
 public:
 	const BlockType* type;
-	glm::vec3 pos;
+	glm::ivec3 pos;
 
 	Block(const BlockType& type, const glm::vec3& pos) : type(&type), pos(pos) {};
 };

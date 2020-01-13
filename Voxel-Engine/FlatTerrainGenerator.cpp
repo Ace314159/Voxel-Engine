@@ -18,5 +18,5 @@ std::unique_ptr<Chunk> FlatTerrainGenerator::generateChunk(World* world, Chunk::
 				blocks.emplace_back(BlockTypes::Air, glm::vec3(worldX, y, worldZ));
 		}
 	}
-	return std::make_unique<Chunk>(world, blocks);
+	return std::make_unique<Chunk>(world, blocks, key);
 };

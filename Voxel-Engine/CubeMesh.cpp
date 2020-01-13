@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CubeMesh.h"
 
-glm::vec3 CubeMesh::faces[6][4] = {
+glm::ivec3 CubeMesh::faces[6][4] = {
 	// Front
 	{{1, 1, 1},
 	{0, 1, 1},
@@ -34,14 +34,14 @@ glm::vec3 CubeMesh::faces[6][4] = {
 	{1, 0, 0}},
 };
 
-glm::vec2 CubeMesh::texCoords[4] = {
+glm::ivec2 CubeMesh::texCoords[4] = {
 	{1, 1},
 	{0, 1},
 	{0, 0},
 	{1, 0},
 };
 
-glm::vec3 CubeMesh::normals[6] = {
+glm::ivec3 CubeMesh::adjacentFaces[6] = {
 	{0, 0, 1},
 	{1, 0, 0},
 	{0, 0, -1},
@@ -50,20 +50,11 @@ glm::vec3 CubeMesh::normals[6] = {
 	{0, -1, 0},
 };
 
-glm::vec3 CubeMesh::adjacentFaces[6] = {
-	{0, 0, 1},
-	{1, 0, 0},
-	{0, 0, -1},
-	{-1, 0, 0},
-	{0, 1, 0},
-	{0, -1, 0},
-};
-
-void CubeMesh::addFace(const glm::vec3& pos, Face type, int textureID) {
+void CubeMesh::addFace(const glm::ivec3& pos, Face type, int textureID, float lightLevel) {
 	indices.insert(indices.end(),
 		{0 + vertices.size(), 1 + vertices.size(), 2 + vertices.size(),
 		 2 + vertices.size(), 3 + vertices.size(), 0 + vertices.size()});
 	for(int i = 0; i < 4; i++) {
-		vertices.push_back({faces[(int)type][i] + pos, glm::vec3(texCoords[i], textureID), normals[(int)type]});
+		vertices.push_back({ faces[(int)type][i] + pos, glm::ivec3(texCoords[i], textureID), lightLevel });
 	}
 }

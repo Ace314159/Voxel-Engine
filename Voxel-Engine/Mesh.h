@@ -9,7 +9,7 @@ public:
 	struct Vertex {
 		glm::vec3 pos;
 		glm::vec3 texCoord;
-		glm::vec3 normal;
+		float lightLevel;
 	};
 private:
 	GLuint VBO, EBO;
@@ -23,7 +23,5 @@ public:
 	void buffer();
 	void clear();
 	void render() const;
-
-	friend class Entity;
 };
 

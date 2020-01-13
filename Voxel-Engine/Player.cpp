@@ -110,7 +110,7 @@ void Player::setSelectedBlock() {
 			for(int i = 0; i < 6; i++) {
 				glm::ivec3 adjPos = selectedBlockCoords + (glm::ivec3)CubeMesh::adjacentFaces[i];
 				if(world->getBlock(adjPos.x, adjPos.y, adjPos.z).isTransparent)
-					selectedBlockMesh.addFace(selectedBlockCoords, (CubeMesh::Face)i, 0);
+					selectedBlockMesh.addFace(selectedBlockCoords, (CubeMesh::Face)i, 0, 15);
 			}
 			selectedBlockMesh.buffer();
 			break;

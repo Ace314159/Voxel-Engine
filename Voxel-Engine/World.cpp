@@ -13,7 +13,7 @@ World::World() : shader("block"), blockAtlas("blocks.png") {
 
 	glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, offsetof(Mesh::Vertex, Mesh::Vertex::pos));
 	glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, offsetof(Mesh::Vertex, Mesh::Vertex::texCoord));
-	glVertexAttribFormat(2, 3, GL_FLOAT, GL_FALSE, offsetof(Mesh::Vertex, Mesh::Vertex::normal));
+	glVertexAttribFormat(2, 1, GL_FLOAT, GL_FALSE, offsetof(Mesh::Vertex, Mesh::Vertex::lightLevel));
 
 	glVertexAttribBinding(0, 0);
 	glVertexAttribBinding(1, 0);
@@ -129,4 +129,28 @@ void World::setBlock(int x, int y, int z, const BlockType& block) {
 		if(blockZ == 0) chunks.at({chunkX, chunkZ - 1})->makeMesh();
 		if(blockZ == 15) chunks.at({chunkX, chunkZ + 1})->makeMesh();
 	}
+}
+
+float World::getLightLevel(unsigned int x, unsigned int y, unsigned int z) {
+	int chunkX = getChunkCoord(x);
+	int chunkZ = getChunkCoord(z);
+
+	if(chunks.find({ chunkX, chunkZ }) == chunks.end() || y >= CHUNK_HEIGHT || y < 0) return 0xFF;
+
+	int blockX = getBlockCoord(x, chunkX);
+	int blockZ = getBlockCoord(z, chunkZ);
+
+	return chunks.at({ chunkX, chunkZ })->getLightLevel(blockX, y, blockZ);
+}
+
+void World::setLightLevel(unsigned int x, unsigned int y, unsigned int z, float lightLevel) {
+	int chunkX = getChunkCoord(x);
+	int chunkZ = getChunkCoord(z);
+
+	if(chunks.find({ chunkX, chunkZ }) == chunks.end() || y >= CHUNK_HEIGHT || y < 0) return;
+
+	int blockX = getBlockCoord(x, chunkX);
+	int blockZ = getBlockCoord(z, chunkZ);
+
+	chunks.at({ chunkX, chunkZ })->setLightLevel(blockX, y, blockZ, lightLevel);
 }

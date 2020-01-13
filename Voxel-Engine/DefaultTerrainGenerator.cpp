@@ -25,5 +25,5 @@ std::unique_ptr<Chunk> DefaultTerrainGenerator::generateChunk(World* world, Chun
 		}
 	}
 	assert(blocks.size() == CHUNK_VOLUME);
-	return std::make_unique<Chunk>(world, blocks);
+	return std::make_unique<Chunk>(world, blocks, key);
 };
