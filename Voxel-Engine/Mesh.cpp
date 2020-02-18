@@ -30,5 +30,5 @@ void Mesh::render() const {
 	glBindVertexBuffer(0, VBO, 0, sizeof(Vertex));
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, 0);
 }

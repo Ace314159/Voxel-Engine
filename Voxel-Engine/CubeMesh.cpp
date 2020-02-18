@@ -52,8 +52,8 @@ glm::ivec3 CubeMesh::adjacentFaces[6] = {
 
 void CubeMesh::addFace(const glm::ivec3& pos, Face type, int textureID, float lightLevel) {
 	indices.insert(indices.end(),
-		{0 + vertices.size(), 1 + vertices.size(), 2 + vertices.size(),
-		 2 + vertices.size(), 3 + vertices.size(), 0 + vertices.size()});
+		{0 + (GLuint)vertices.size(), 1 + (GLuint)vertices.size(), 2 + (GLuint)vertices.size(),
+		 2 + (GLuint)vertices.size(), 3 + (GLuint)vertices.size(), 0 + (GLuint)vertices.size()});
 	for(int i = 0; i < 4; i++) {
 		vertices.push_back({ faces[(int)type][i] + pos, glm::ivec3(texCoords[i], textureID), lightLevel });
 	}
