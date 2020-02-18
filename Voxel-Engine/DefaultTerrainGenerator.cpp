@@ -21,7 +21,7 @@ std::unique_ptr<Chunk> DefaultTerrainGenerator::generateChunk(World* world, Chun
 			double e = eNoise.get(perlinX, perlinZ);
 			double m = mNoise.get(perlinX, perlinZ);
 
-			Biomes::getBiome(e, m)->generateColumn(blocks, e, worldX, worldZ);
+			std::make_unique<Biomes::Grassland>()->generateColumn(blocks, e, worldX, worldZ);
 		}
 	}
 	assert(blocks.size() == CHUNK_VOLUME);
