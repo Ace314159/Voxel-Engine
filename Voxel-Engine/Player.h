@@ -18,7 +18,7 @@ private:
 	double prevTime;
 
 	glm::vec3 pos;
-	const double baseSpeed = 5;
+	const double baseSpeed = 10;
 	const float reach = 5;
 	const float buffer = 0.2f;
 	glm::vec4 rayEye;
